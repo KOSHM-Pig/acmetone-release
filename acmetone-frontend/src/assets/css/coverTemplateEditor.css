@@ -1,0 +1,424 @@
+/* Styles for CoverTemplateEditor.vue */
+.template-editor-container { 
+  padding: 20px 40px; 
+  background-color: #0d0d0d;
+  color: #cccccc; 
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  box-sizing: border-box;
+}
+.editor-header h1 { color: #ffffff; font-weight: 600; }
+.editor-header p { color: #888888; }
+
+.editor-layout { 
+  display: flex; 
+  gap: 30px; 
+  flex-grow: 1;
+  height: 0;
+}
+.template-list-column, .layers-column, .inspector-column {
+  background-color: #171717;
+  padding: 20px;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.template-list-column { 
+  flex: 1 1 230px;
+  min-width: 200px;
+}
+.layers-column { 
+  flex: 1 1 230px;
+  min-width: 200px;
+}
+.preview-column { 
+  flex: 2 1 40%;
+  min-width: 300px;
+  display: flex; 
+  flex-direction: column; 
+}
+.inspector-column { 
+  flex: 1.5 1 320px;
+  min-width: 280px;
+}
+
+.column-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #333;
+  color: #888888; 
+  text-transform: uppercase;
+  font-size: 0.8em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.column-header .header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.column-header h2 {
+  font-size: 1em;
+  margin: 0;
+  color: #ffffff;
+}
+
+.template-list, .layers-list, .inspector-content { 
+  flex-grow: 1; 
+  overflow-y: auto;
+}
+
+.template-item, .layer-item { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 12px 5px; 
+  cursor: pointer; 
+  border-radius: 0; 
+  border-left: 3px solid transparent;
+  transition: background-color 0.2s, border-color 0.2s;
+  margin-bottom: 2px;
+  color: #aaaaaa;
+  user-select: none;
+}
+.template-item:hover, .layer-item:hover { background-color: #222222; }
+.template-item.active, .layer-item.active { 
+  background-color: transparent;
+  border-left-color: #ffffff;
+  color: #ffffff;
+  font-weight: 500; 
+}
+.layer-item.drag-over {
+  border-top: 2px solid #4CAF50;
+}
+.editor-placeholder { text-align: center; padding: 50px; color: #666; margin: auto; }
+
+.inspector-content { 
+  padding: 0 5px; 
+}
+
+.editor-actions { margin-top: 20px; padding: 0; }
+
+.preview-area {
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #000000;
+  border-radius: 0;
+}
+
+/* Element Plus Dark Theme Overrides - High Contrast Minimalist */
+.template-editor-container .el-button--primary { 
+  background-color: transparent !important; 
+  border: 1px solid #888 !important;
+  color: #fff !important;
+  width: 100%;
+}
+.template-editor-container .el-button--primary:hover { 
+  background-color: #fff !important; 
+  border-color: #fff !important;
+  color: #000 !important;
+}
+.template-editor-container .el-button.is-circle {
+  background-color: transparent !important;
+  border-color: #666 !important;
+}
+.template-editor-container .el-button.is-circle:hover {
+  background-color: #222 !important;
+  border-color: #888 !important;
+}
+
+.template-editor-container .el-input__wrapper, .template-editor-container .el-select__wrapper { 
+  background-color: transparent !important; 
+  box-shadow: none !important;
+  border: none !important;
+  border-bottom: 1px solid #555 !important;
+  border-radius: 0 !important;
+  padding: 0 1px;
+}
+.template-editor-container .el-input__wrapper:hover, .template-editor-container .el-select__wrapper:hover {
+  border-bottom-color: #fff !important;
+}
+.template-editor-container .el-input__inner { color: #e2e8f0 !important; }
+
+.template-editor-container .el-form-item__label { 
+  color: #888;
+  text-transform: uppercase;
+  font-size: 0.75em;
+  letter-spacing: 0.05em;
+}
+
+.template-editor-container .el-slider__bar { background-color: #fff; }
+.template-editor-container .el-slider__runway { background-color: #444; }
+.template-editor-container .el-slider__button { border-color: #fff; background-color: #fff;}
+
+.template-editor-container .el-radio-button__inner {
+  background-color: transparent;
+  color: #888;
+  border-color: #555;
+}
+.template-editor-container .el-radio-button__original-radio:checked+.el-radio-button__inner {
+  background-color: #fff;
+  border-color: #fff;
+  color: #000;
+  box-shadow: none !important;
+}
+.template-editor-container .el-color-picker__trigger {
+  border-color: #555;
+  background-color: transparent;
+}
+.template-editor-container .el-empty__description { color: #666; }
+.template-editor-container .el-divider__text {
+    background-color: #171717;
+    color: #888;
+    text-transform: uppercase;
+}
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.global-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0;
+  margin-bottom: 20px;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+}
+
+.template-selector {
+  width: 300px;
+}
+
+.template-name-input {
+  width: 300px;
+}
+
+.global-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.editor-layout.is-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Deeper style overrides for sliders - New Professional Look */
+.template-editor-container .el-slider {
+  --el-slider-height: 2px;
+  --el-slider-button-size: 18px;
+  --el-slider-main-bg-color: #ffffff;
+  --el-slider-runway-bg-color: #4a4a4a;
+  --el-slider-disabled-color: #333;
+}
+
+.template-editor-container .el-slider__bar {
+  height: 2px;
+}
+
+.template-editor-container .el-slider__button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.template-editor-container .el-slider__button {
+  width: 6px;
+  height: 16px;
+  border-radius: 2px;
+  border: none;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+
+.template-editor-container .el-slider__button-wrapper:hover .el-slider__button {
+  transform: scale(1.15);
+  cursor: grab;
+}
+
+.template-editor-container .el-slider__button-wrapper:active .el-slider__button {
+  cursor: grabbing;
+}
+
+.editor-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+  overflow: auto;
+  padding: 20px 40px; /* Re-apply padding that might be lost */
+}
+
+.slider-input-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+.slider-input-group .el-slider {
+  flex-grow: 1;
+}
+.slider-input-group .el-input-number {
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.debug-info {
+  font-size: 12px;
+  color: #888;
+  font-family: monospace;
+}
+
+.editor-status-bar {
+  flex-shrink: 0;
+  height: 32px;
+  background-color: #1a1a1a;
+  border-top: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  color: #888;
+  font-size: 12px;
+}
+
+.status-bar-left, .status-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.grid-controls .el-form-item {
+  margin-bottom: 8px;
+}
+.grid-controls .el-form-item .el-form-item__label {
+  color: #dcdfe6;
+}
+
+.layer-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    flex-grow: 1;
+    overflow: hidden; /* To handle long names */
+    padding-right: 10px;
+}
+
+.layer-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    transition: all 0.2s ease-in-out;
+}
+
+.layer-item.has-controls .layer-name {
+    font-size: 0.8em;
+    color: #888;
+    margin-bottom: 6px;
+}
+
+.active-layer-controls {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.blend-mode-select {
+    width: 100%;
+}
+
+.template-editor-container .blend-mode-select .el-input__wrapper {
+    padding: 0 8px !important;
+    height: 24px;
+    font-size: 12px;
+}
+
+.layer-actions {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 8px;
+}
+
+.opacity-control {
+    width: 70px;
+}
+
+.template-editor-container .opacity-control .el-slider {
+    --el-slider-height: 3px;
+    --el-slider-button-size: 12px;
+}
+
+.layer-quick-controls {
+  padding: 10px 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #333;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.control-group:last-child {
+  margin-bottom: 0;
+}
+
+.control-group label {
+  font-size: 12px;
+  color: #888;
+  width: 50px;
+  flex-shrink: 0;
+}
+
+.control-group .el-slider {
+  flex-grow: 1;
+}
+
+.template-editor-container .layer-quick-controls .el-select {
+  width: 100%;
+}
+
+.template-editor-container .layer-quick-controls .el-input__wrapper {
+    padding: 0 8px !important;
+    height: 28px;
+    font-size: 12px;
+}
+
+.template-editor-container .layer-quick-controls .el-slider {
+    --el-slider-height: 3px;
+    --el-slider-button-size: 12px;
+}
+
+.layer-item.is-hidden {
+  opacity: 0.5;
+}
+
+.layer-item.is-hidden .layer-name {
+  color: #888;
+  text-decoration: line-through;
+} 

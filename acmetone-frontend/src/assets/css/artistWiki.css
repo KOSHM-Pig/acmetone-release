@@ -1,0 +1,1857 @@
+/* 
+============================================
+   ArtistWiki.vue - Martin Garrix Theme 2025
+============================================
+*/
+
+:root {
+  --garrix-white: #ffffff;
+  --garrix-off-white: #f5f5f5;
+  --garrix-light-gray: #e0e0e0;
+  --garrix-medium-gray: #888888;
+  --garrix-dark-gray: #333333;
+  --garrix-black: #000000;
+  --garrix-font: 'Montserrat', sans-serif;
+  --garrix-accent: #5628ee; /* 紫色强调色 */
+}
+
+.artist-wiki {
+    max-width: 1200px;
+    margin: 0 auto;
+  padding: 40px;
+  background-color: var(--garrix-white);
+  color: var(--garrix-black);
+  min-height: 100vh;
+  }
+  
+/* Page Header */
+  .page-header-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin-bottom: 40px;
+  padding: 0;
+  border-bottom: 1px solid var(--garrix-light-gray);
+  border-radius: 0;
+  }
+  
+  .page-header {
+  padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .page-title {
+  font-family: var(--garrix-font);
+  font-size: 42px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--garrix-black);
+    margin: 0;
+  }
+  
+  .page-subtitle {
+  font-family: var(--garrix-font);
+    font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--garrix-medium-gray);
+  margin-top: 8px;
+  }
+  
+.view-toggle .view-label {
+  color: var(--garrix-medium-gray);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+  }
+  
+/* Search and Actions */
+  .search-container {
+  margin-bottom: 40px;
+  }
+  
+.search-container .el-input__wrapper {
+  background-color: var(--garrix-white);
+  box-shadow: none;
+  border: 1px solid var(--garrix-light-gray);
+  border-radius: 0;
+  }
+  
+.search-container .el-input__inner {
+  color: var(--garrix-black);
+  height: 48px;
+  line-height: 48px;
+  font-size: 16px;
+}
+
+.search-container .el-input-group__append {
+  background: var(--garrix-black);
+  border: 1px solid var(--garrix-black);
+  color: var(--garrix-white);
+  border-radius: 0;
+}
+
+.user-artist-note .el-alert {
+  background-color: var(--garrix-off-white);
+  border: 1px solid var(--garrix-light-gray);
+  border-radius: 0;
+}
+
+.user-artist-note .el-alert__title,
+.user-artist-note .el-alert__description p {
+  color: var(--garrix-dark-gray);
+  }
+  
+/* Buttons and Toggles */
+.artist-wiki :deep(.el-button) {
+  font-family: var(--garrix-font);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 0;
+  border: 1px solid var(--garrix-black);
+  font-weight: 600;
+    transition: all 0.3s ease;
+  height: 50px;
+  }
+  
+.artist-wiki :deep(.el-button--primary) {
+  background-color: var(--garrix-black);
+  color: var(--garrix-white);
+  border-color: var(--garrix-black);
+  }
+  
+.artist-wiki :deep(.el-button--primary:hover) {
+  background-color: var(--garrix-white);
+  color: var(--garrix-black);
+  }
+  
+.artist-wiki :deep(.el-button--danger) {
+  background-color: transparent;
+  color: #ff4d4d;
+  border-color: #ff4d4d;
+}
+.artist-wiki :deep(.el-button--danger:hover) {
+  background-color: #ff4d4d;
+  color: var(--garrix-white);
+  }
+  
+.artist-wiki :deep(.el-radio-button__inner) {
+  background-color: var(--garrix-white);
+  border: 1px solid var(--garrix-light-gray);
+  color: var(--garrix-medium-gray);
+  box-shadow: none;
+  height: auto;
+  }
+  
+.artist-wiki :deep(.el-radio-button:first-child .el-radio-button__inner),
+.artist-wiki :deep(.el-radio-button:last-child .el-radio-button__inner) {
+  border-radius: 0;
+}
+
+.artist-wiki :deep(.el-radio-button__original-radio:checked + .el-radio-button__inner) {
+  background-color: var(--garrix-black);
+  color: var(--garrix-white);
+  border-color: var(--garrix-black);
+    }
+
+/* Card View */
+.card-view .el-col {
+  display: flex;
+  }
+  
+.artist-card {
+  background-color: var(--garrix-white);
+  border: 1px solid var(--garrix-black);
+  border-radius: 0;
+  margin-bottom: 24px;
+  padding: 24px;
+  transition: all 0.3s ease;
+  box-shadow: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  }
+  
+.artist-card:hover {
+  border-color: var(--garrix-black);
+  background-color: var(--garrix-off-white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  
+  .artist-card-content {
+    display: flex;
+    flex-direction: column;
+  flex-grow: 1;
+  padding: 0;
+  }
+  
+  .artist-names {
+  line-height: 1.2;
+  }
+  
+  .artist-name {
+  font-size: 22px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--garrix-black);
+  margin-bottom: 8px;
+  }
+  
+.artist-realname, .artist-idnumber {
+  font-size: 13px;
+  color: var(--garrix-medium-gray);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  }
+  
+  .platform-container {
+  margin-top: 16px;
+  }
+  
+  .platform-links {
+  gap: 12px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .platform-icon-link {
+  width: 36px;
+  height: 36px;
+  background-color: var(--garrix-off-white);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .platform-icon-link:hover {
+  background-color: var(--garrix-black);
+  }
+  
+  .platform-icon-link img {
+  width: 20px;
+  height: 20px;
+  filter: none;
+  transition: filter 0.3s ease;
+  }
+
+  /* 创建者信息样式 */
+  .artist-creator {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0 15px;
+    font-size: 12px;
+    color: #333333;
+  }
+  
+  .creator-label {
+    margin-right: 5px;
+  }
+  
+  .creator-name {
+    font-weight: 500;
+    color: #333333;
+  }
+  
+  .artist-actions {
+    margin-top: auto;
+  padding-top: 24px;
+}
+
+.artist-actions .el-button {
+  height: 40px;
+  font-size: 12px;
+}
+
+/* List View */
+.list-view :deep(.el-table),
+.list-view :deep(.el-table tr),
+.list-view :deep(.el-table th.el-table__cell),
+.list-view :deep(.el-table td.el-table__cell) {
+  background-color: transparent !important;
+  color: var(--garrix-black) !important;
+  border-color: var(--garrix-light-gray) !important;
+  }
+  
+.list-view :deep(.el-table__header-wrapper th) {
+  background-color: var(--garrix-off-white) !important;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--garrix-dark-gray) !important;
+}
+
+.list-view :deep(.el-table__row:hover > td) {
+  background-color: var(--garrix-off-white) !important;
+}
+
+.list-view :deep(.el-table::before) {
+  height: 0; /* Remove bottom border of table */
+}
+
+.list-view .platform-icon {
+  width: 24px;
+  height: 24px;
+  filter: none;
+  transition: filter 0.3s ease;
+}
+.list-view .platform-icon:hover {
+  transform: scale(1.1);
+}
+.list-view .el-button {
+  height: 32px;
+  font-size: 12px;
+  background: transparent !important;
+  border-width: 1px !important;
+}
+.list-view .el-button--primary {
+    color: var(--garrix-black) !important;
+    border-color: var(--garrix-black) !important;
+}
+.list-view .el-button--primary:hover {
+    background: var(--garrix-black) !important;
+    color: var(--garrix-white) !important;
+}
+.list-view .el-button--success {
+    color: #67c23a !important;
+    border-color: #67c23a !important;
+}
+.list-view .el-button--success:hover {
+    background: #67c23a !important;
+    color: var(--garrix-white) !important;
+}
+.list-view .el-button--danger {
+    color: #f56c6c !important;
+    border-color: #f56c6c !important;
+}
+.list-view .el-button--danger:hover {
+    background: #f56c6c !important;
+    color: var(--garrix-white) !important;
+}
+
+/* Dialog */
+.artist-wiki :deep(.el-dialog) {
+    background-color: var(--garrix-white);
+    border-radius: 0;
+    border: 1px solid var(--garrix-light-gray);
+}
+.artist-wiki :deep(.el-dialog__title) {
+    color: var(--garrix-black);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.artist-wiki :deep(.el-dialog__header) {
+    border-bottom: 1px solid var(--garrix-light-gray);
+    margin-right: 0;
+}
+.artist-wiki :deep(.el-form-item__label) {
+    color: var(--garrix-medium-gray);
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+.artist-wiki :deep(.el-input__wrapper) {
+    box-shadow: none !important;
+    background: var(--garrix-white);
+    border-radius: 0;
+    border: 1px solid #d9d9d9;
+    padding: 0;
+    transition: all 0.3s ease;
+    height: 40px;
+    position: relative;
+}
+
+.artist-wiki :deep(.el-input__wrapper)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) inset;
+}
+
+.artist-wiki :deep(.el-input__wrapper:hover) {
+  box-shadow: none !important;
+  border-color: #b6b6b6;
+}
+
+.artist-wiki :deep(.el-input__wrapper.is-focus) {
+  box-shadow: none !important;
+  border-color: var(--garrix-black);
+  background-color: var(--garrix-white);
+}
+
+.artist-wiki :deep(.el-input__inner) {
+    color: var(--garrix-black);
+}
+
+.input-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+.input-icon {
+    width: 24px;
+    height: 24px;
+    filter: none;
+}
+
+.link-validation-tip, .form-item-tip {
+    color: var(--garrix-medium-gray);
+    font-size: 12px;
+    margin-top: 4px;
+}
+.link-validation-tip.is-success {
+    color: #67c23a;
+  }
+.link-validation-tip:not(.is-success) {
+    color: #f56c6c;
+  }
+  
+.delete-confirmation {
+    color: var(--garrix-dark-gray);
+}
+.delete-warning strong {
+    color: var(--garrix-black);
+    font-weight: 700;
+  }
+  
+/* 歌手管理提示 Martin Garrix 风格 */
+.garrix-info-box {
+  background-color: var(--garrix-white);
+  border: 2px solid var(--garrix-black);
+  padding: 0;
+  margin-bottom: 30px;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.garrix-info-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.15);
+  }
+  
+.garrix-info-header {
+  background-color: var(--garrix-black);
+  color: var(--garrix-white);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.garrix-info-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  }
+  
+.info-icon {
+  font-size: 20px;
+}
+
+.garrix-info-content {
+  padding: 20px;
+  }
+  
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+  }
+  
+.item-number {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--garrix-white);
+  background-color: var(--garrix-black);
+  min-width: 32px;
+  height: 32px;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+    justify-content: center;
+  border: 1px solid var(--garrix-black);
+}
+
+.info-item p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  flex: 1;
+  padding-top: 6px;
+  font-weight: 600;
+  color: var(--garrix-black);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .artist-wiki {
+    padding: 20px;
+  }
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .page-title {
+    font-size: 32px;
+  }
+  .search-row {
+    flex-direction: column;
+  }
+  .artist-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .artist-card-left {
+    margin: 0 auto;
+  }
+  .artist-names {
+    align-items: center;
+  }
+  .platform-links {
+    justify-content: center;
+  }
+  .garrix-info-box {
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .garrix-info-header {
+    padding: 12px 16px;
+  }
+  
+  .garrix-info-header h3 {
+    font-size: 14px;
+  }
+  
+  .garrix-info-content {
+    padding: 16px;
+  }
+  
+  .info-item {
+    margin-bottom: 12px;
+    gap: 12px;
+  }
+  
+  .item-number {
+    font-size: 16px;
+    min-width: 28px;
+    height: 28px;
+  }
+  
+  .info-item p {
+    font-size: 13px;
+    padding-top: 4px;
+  }
+}
+
+/* Martin Garrix 2025风格输入框样式 - 小巧紧凑版 */
+.artist-wiki :deep(.el-form-item) {
+  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.artist-wiki :deep(.el-form-item__label) {
+  font-family: var(--garrix-font);
+  font-weight: 600;
+  color: var(--garrix-black);
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+  padding: 0;
+  line-height: 1.4;
+  display: block;
+  text-align: left;
+}
+
+.artist-wiki :deep(.el-input__wrapper) {
+  box-shadow: none !important;
+  background: var(--garrix-white);
+  border-radius: 0;
+  border: 1px solid #d9d9d9;
+  padding: 0;
+  transition: all 0.3s ease;
+  height: 40px;
+    position: relative;
+  }
+  
+.artist-wiki :deep(.el-input__wrapper)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) inset;
+}
+
+.artist-wiki :deep(.el-input__wrapper:hover) {
+  box-shadow: none !important;
+  border-color: #b6b6b6;
+}
+
+.artist-wiki :deep(.el-input__wrapper.is-focus) {
+  box-shadow: none !important;
+  border-color: var(--garrix-black);
+  background-color: var(--garrix-white);
+}
+
+.artist-wiki :deep(.el-input__inner) {
+  height: 40px;
+  line-height: 40px;
+  color: var(--garrix-black);
+  font-weight: 500;
+  font-size: 14px;
+  font-family: var(--garrix-font);
+  padding: 0 12px;
+}
+
+.artist-wiki :deep(.el-input__inner::placeholder) {
+  color: var(--garrix-medium-gray);
+  opacity: 0.7;
+  font-size: 13px;
+  }
+  
+.artist-wiki :deep(.el-textarea__inner) {
+  border: 1px solid #d9d9d9;
+  background-color: var(--garrix-white);
+  border-radius: 0;
+  transition: all 0.3s ease;
+  padding: 12px;
+  color: var(--garrix-black);
+  font-family: var(--garrix-font);
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) inset;
+  min-height: 80px;
+}
+
+.artist-wiki :deep(.el-textarea__inner:hover) {
+  border-color: #b6b6b6;
+  }
+  
+.artist-wiki :deep(.el-textarea__inner:focus) {
+  border-color: var(--garrix-black);
+  background-color: var(--garrix-white);
+}
+
+/* 输入框图标样式 */
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+  z-index: 2;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.input-with-icon:hover .input-icon {
+  opacity: 1;
+}
+
+.input-with-icon :deep(.el-input__inner) {
+  padding-left: 36px !important;
+}
+
+/* 错误状态样式 */
+.artist-wiki :deep(.el-input.is-error .el-input__wrapper) {
+  box-shadow: none !important;
+  border-color: #ff4d4d;
+}
+
+/* 表单提示样式 */
+.form-item-tip {
+  font-size: 11px;
+  color: var(--garrix-medium-gray);
+  margin-top: 4px;
+  padding-left: 2px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+/* 链接验证提示样式 */
+.link-validation-tip {
+  margin-top: 4px;
+  font-size: 11px;
+  color: #ff4d4d;
+  display: flex;
+  align-items: center;
+  padding-left: 2px;
+  letter-spacing: 0.3px;
+  }
+  
+  .link-validation-tip.is-success {
+    color: #67c23a;
+  }
+  
+.link-validation-tip::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: currentColor;
+  margin-right: 4px;
+}
+
+/* 对话框样式 */
+.artist-wiki :deep(.el-dialog) {
+  border-radius: 0;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--garrix-light-gray);
+  overflow: hidden;
+  max-width: 90vw;
+  width: 500px !important; /* 控制对话框宽度 */
+}
+
+.artist-wiki :deep(.el-dialog__header) {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--garrix-light-gray);
+  background-color: var(--garrix-white);
+  }
+  
+.artist-wiki :deep(.el-dialog__title) {
+  font-family: var(--garrix-font);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--garrix-black);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.artist-wiki :deep(.el-dialog__body) {
+  padding: 20px;
+  background-color: var(--garrix-white);
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* 表单布局 */
+.artist-wiki :deep(.el-form) {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 必填项星号样式 */
+.artist-wiki :deep(.el-form-item.is-required > .el-form-item__label::before) {
+  color: #ff4d4d;
+  margin-right: 4px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .artist-wiki :deep(.el-dialog) {
+    width: 95vw !important;
+  }
+  
+  .artist-wiki :deep(.el-dialog__body) {
+    padding: 15px;
+    max-height: 65vh;
+  }
+  
+  .artist-wiki :deep(.el-form-item) {
+    margin-bottom: 15px;
+  }
+}
+
+/* 登录风格按钮样式 */
+.artist-wiki :deep(.el-dialog__footer) {
+  padding: 12px 20px 16px;
+  border-top: 1px solid var(--garrix-light-gray);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background-color: var(--garrix-white);
+}
+
+.artist-wiki :deep(.el-dialog__footer .el-button) {
+  font-family: var(--garrix-font);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 0;
+  border: 1px solid var(--garrix-black);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  height: 40px;
+  padding: 0 20px;
+  font-size: 13px;
+}
+
+.artist-wiki :deep(.el-dialog__footer .el-button--primary) {
+  background-color: var(--garrix-black);
+  color: var(--garrix-white);
+  border-color: var(--garrix-black);
+}
+
+.artist-wiki :deep(.el-dialog__footer .el-button--primary:hover) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.artist-wiki :deep(.el-dialog__footer .el-button--default) {
+  background-color: var(--garrix-white);
+  color: var(--garrix-black);
+  border: 1px solid var(--garrix-black);
+  }
+  
+.artist-wiki :deep(.el-dialog__footer .el-button--default:hover) {
+  background-color: var(--garrix-off-white);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* 分割线样式 */
+.artist-wiki :deep(.el-divider) {
+  margin: 20px 0;
+}
+
+.artist-wiki :deep(.el-divider__text) {
+  font-family: var(--garrix-font);
+  font-weight: 600;
+  color: var(--garrix-black);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background-color: var(--garrix-white);
+  padding: 0 12px;
+  }
+
+  /* 添加新样式 */
+.delete-warning {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 15px 0;
+  color: #f56c6c;
+}
+
+/* 待审核申请对话框样式 */
+.pending-request-content {
+  padding: 0;
+}
+
+/* 对话框状态头部 */
+.dialog-status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.request-time {
+  color: #86868b;
+  font-size: 14px;
+}
+
+/* 对话框布局 */
+.dialog-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.mobile-layout {
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* 左侧详情列 */
+.details-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 右侧对比列 */
+.comparison-column {
+  border-left: 1px solid #eaeaea;
+  padding-left: 24px;
+}
+
+.comparison-column h4 {
+  margin: 0 0 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+/* 提示框样式 */
+.notice-box {
+  padding: 16px;
+  border-left: 3px solid;
+  background-color: #f9f9f9;
+}
+
+.notice-box h5 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1d1d1f;
+}
+
+.notice-box p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.notice-box.reason-box {
+  border-color: #409EFF;
+  background-color: rgba(64, 158, 255, 0.05);
+}
+
+.notice-box.info-box {
+  border-color: #E6A23C;
+  background-color: rgba(230, 162, 60, 0.05);
+}
+
+/* 修改内容列表 */
+.changes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.change-item {
+  padding: 12px;
+  border: 1px solid #eaeaea;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.change-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #86868b;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.change-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.change-old {
+  color: #999;
+  text-decoration: line-through;
+  flex: 1;
+  word-break: break-all;
+}
+
+.change-new {
+  color: #67c23a;
+  font-weight: 600;
+  flex: 1;
+  word-break: break-all;
+}
+
+.no-changes {
+  text-align: center;
+  padding: 30px 0;
+  color: #909399;
+  font-style: italic;
+}
+
+/* 操作按钮 */
+.action-buttons {
+  margin-top: 10px;
+}
+
+/* 转换对话框样式 */
+.convert-dialog-content {
+  margin-top: 10px;
+}
+
+.convert-form {
+  width: 100%;
+}
+
+.convert-artist-dialog .edit-dialog-content {
+  display: flex;
+  gap: 20px;
+}
+
+.convert-artist-dialog .edit-form-container {
+  flex: 2;
+  min-width: 0;
+}
+
+.convert-artist-dialog .ai-recognizer-container {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+  border-left: 1px solid #ebeef5;
+  padding-left: 20px;
+}
+
+.convert-artist-dialog .ai-recognizer-header {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.convert-artist-dialog .ai-recognizer-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: #409eff;
+}
+
+.convert-artist-dialog .platform-header {
+  margin-bottom: 15px;
+}
+
+.convert-artist-dialog .platform-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 10px 20px;
+}
+
+@media (max-width: 768px) {
+  .convert-artist-dialog .platform-links-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .convert-artist-dialog .edit-dialog-content.mobile-layout {
+    flex-direction: column;
+  }
+  
+  .convert-artist-dialog .ai-recognizer-container {
+    border-left: none;
+    border-top: 1px solid #ebeef5;
+    padding-left: 0;
+    padding-top: 20px;
+    margin-top: 20px;
+    max-width: none;
+  }
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .comparison-column {
+    border-left: none;
+    border-top: 1px solid #eaeaea;
+    padding-left: 0;
+    padding-top: 20px;
+  }
+  
+  :deep(.pending-request-dialog .el-dialog) {
+    width: 95% !important;
+    max-width: 100%;
+    margin: 10px auto;
+  }
+  
+  :deep(.pending-request-dialog .el-dialog__body) {
+    padding: 16px;
+  }
+}
+
+.user-created-note {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding: 8px;
+  background-color: #f0f9eb;
+  border-radius: 4px;
+  color: #67c23a;
+}
+
+.user-created-note .el-icon {
+  margin-right: 5px;
+}
+
+.avatar-uploader {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px dashed #d9d9d9;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 10px;
+  transition: all 0.3s;
+}
+
+.avatar-uploader:hover {
+  border-color: #409eff;
+  box-shadow: 0 0 8px rgba(64, 158, 255, 0.2);
+}
+
+.avatar-preview-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-preview {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 50%;
+}
+
+.avatar-overlay .el-icon {
+  font-size: 24px;
+}
+
+.avatar-preview-wrapper:hover .avatar-overlay {
+  opacity: 1;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #8c939d;
+}
+
+.avatar-placeholder .el-icon {
+  font-size: 30px;
+}
+
+.avatar-tip {
+  font-size: 12px;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.success-tip {
+  color: #67c23a;
+}
+
+.normal-tip {
+  color: #909399;
+}
+
+.link-validation-tip {
+  color: #f56c6c;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.link-validation-tip.is-success {
+  color: #67c23a;
+}
+
+/* 网易云音乐信息预览样式 */
+.netease-info-preview {
+  margin-top: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.netease-info-preview.fetching {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e0e0e0;
+  font-weight: 600;
+  color: #409eff;
+  font-size: 14px;
+}
+
+.preview-content {
+  display: flex;
+  gap: 12px;
+  padding: 0;
+}
+
+.preview-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f0f0f0;
+  flex-shrink: 0;
+}
+
+.preview-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-text {
+  flex: 1;
+}
+
+.preview-text p {
+  margin: 4px 0;
+  font-size: 13px;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.preview-text p strong {
+  color: #606266;
+  display: inline-block;
+  width: 50px;
+}
+
+.preview-text p:last-child {
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-height: 34px;
+}
+
+/* 转换对话框相关样式 */
+.convert-dialog :deep(.el-dialog__body) {
+  padding: 20px;
+}
+
+.convert-dialog-content {
+  display: flex;
+  gap: 20px;
+}
+
+.convert-form {
+  flex: 2;
+}
+
+/* 移动端适配 */
+@media (max-width: 767px) {
+  .convert-dialog-content {
+    flex-direction: column;
+  }
+  
+  .convert-form {
+    width: 100%;
+  }
+}
+
+/* 重新设计歌手卡片样式 */
+.artist-card {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #fff;
+  overflow: hidden;
+  position: relative; /* 添加相对定位，以便NEW标签能够正确定位 */
+}
+
+.artist-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.artist-card-content {
+  padding: 20px;
+}
+
+.artist-header {
+  display: flex;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.artist-header.has-avatar {
+  /* 有头像时的样式保持不变 */
+}
+
+.artist-header:not(.has-avatar) .artist-names {
+  /* 无头像时名称区域样式调整 */
+  padding-left: 0;
+}
+
+.artist-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.artist-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.artist-names {
+  flex: 1;
+}
+
+.artist-name {
+  margin: 0 0 5px 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.artist-realname {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.artist-idnumber {
+  display: block;
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 5px;
+}
+
+.artist-type {
+  margin-top: 8px;
+}
+
+.artist-description {
+  margin-bottom: 15px;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+  max-height: 68px;
+  overflow: hidden;
+  width: 100%; /* 增加宽度 */
+}
+
+.platform-container {
+  margin-bottom: 10px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.platform-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.platform-icon-link {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.platform-icon-link:hover {
+  transform: scale(1.1);
+  background-color: #e8f4ff;
+}
+
+.platform-icon-link img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.second-row {
+  margin-top: 0;
+  border-top: none;
+  padding-top: 0;
+}
+
+.artist-actions {
+  margin-top: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.avatar-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  color: #409eff;
+  font-size: 24px;
+}
+
+/* 添加网易云信息获取按钮样式 */
+.fetch-button {
+  padding: 5px 10px;
+  font-size: 12px;
+  height: 28px;
+  line-height: 1;
+  margin-left: 4px;
+}
+
+.netease-avatar {
+  display: flex;
+  align-items: center;
+}
+
+.netease-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.no-avatar {
+  color: #909399;
+  font-size: 14px;
+}
+
+.brief-desc {
+  color: #606266;
+  font-size: 14px;
+}
+
+.search-container {
+  margin-bottom: 20px;
+}
+
+.search-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.batch-fetch-button {
+  margin-right: 10px;
+}
+
+.batch-selection-controls {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.selected-count {
+  margin-left: 15px;
+  color: #409EFF;
+  font-weight: bold;
+}
+
+.netease-avatar {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.netease-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.no-avatar {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  color: #909399;
+  border-radius: 50%;
+  font-size: 12px;
+}
+
+.brief-desc {
+  max-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  font-size: 12px;
+  color: #606266;
+  width: 100%; /* 增加宽度 */
+}
+
+/* 在样式部分添加新的CSS类 */
+.netease-brief-desc {
+  width: 1200; /* 可调整的宽度 */
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 歌手状态提示样式 */
+.artist-status-tip, .full-new-artist-tip {
+  margin-bottom: 20px;
+}
+
+.form-item-tip {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #909399;
+}
+
+.form-item-tip.warning {
+  color: #E6A23C;
+}
+
+/* NEW 标签样式 */
+.new-artist-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #f56c6c;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: rotate(5deg);
+}
+
+/* 列表视图头像样式 */
+.list-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.list-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.no-avatar-list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  color: #909399;
+  font-size: 12px;
+  border-radius: 50%;
+}
+
+/* 列表视图中艺名单元格样式 */
+.artist-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.new-tag {
+  font-size: 10px;
+  padding: 0 4px;
+  height: 18px;
+  line-height: 16px;
+}
+
+.avatar-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar-preview-wrapper {
+  position: relative;
+}
+
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* 编辑对话框相关样式 */
+.artist-edit-dialog :deep(.el-dialog__body) {
+  padding: 20px;
+}
+
+.artist-edit-dialog :deep(.el-dialog) {
+  min-width: 300px;
+  width: 95% !important;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.edit-dialog-content {
+  display: flex;
+  gap: 20px;
+}
+
+.edit-form-container {
+  flex: 2;
+}
+
+.ai-recognition-container {
+  flex: 1;
+  border-left: 1px solid #eaeaea;
+  padding-left: 20px;
+}
+
+/* 移动端样式 */
+.mobile-layout {
+  flex-direction: column;
+}
+
+.mobile-layout .edit-form-container {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.mobile-layout .ai-recognition-container {
+  width: 100%;
+  border-left: none;
+  border-top: 1px solid #eaeaea;
+  padding-left: 0;
+  padding-top: 20px;
+}
+
+/* 移动端表单样式优化 */
+@media (max-width: 767px) {
+  .artist-edit-dialog :deep(.el-form-item__label) {
+    padding-right: 5px;
+    font-size: 14px;
+  }
+  
+  .artist-edit-dialog :deep(.el-input) {
+    font-size: 14px;
+  }
+  
+  .artist-edit-dialog :deep(.el-dialog__title) {
+    font-size: 16px;
+  }
+  
+  .artist-edit-dialog :deep(.el-dialog__body) {
+    padding: 15px 10px;
+  }
+  
+  .artist-edit-dialog :deep(.el-dialog__footer) {
+    padding: 10px;
+  }
+  
+  .form-item-tip {
+    font-size: 12px;
+  }
+  
+  .input-with-icon {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .input-with-icon .input-icon {
+    margin-bottom: 5px;
+  }
+}
+
+.ai-recognition-header {
+  margin-bottom: 20px;
+}
+
+.ai-recognition-header h3 {
+  color: #409eff;
+  font-size: 18px;
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.ai-recognition-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.ai-recognition-placeholder {
+  margin-top: 20px;
+  text-align: center;
+  color: #909399;
+}
+
+.ai-recognition-placeholder p {
+  margin: 5px 0;
+}
+
+/* 添加新的样式类 */
+.wide-dialog {
+  width: 95% !important;
+}
+
+.wide-custom-dialog {
+  min-width: 900px !important;
+  width: 95% !important;
+  max-width: 1400px !important;
+}
+
+/* 全局样式覆盖 */
+:deep(.wide-custom-dialog) {
+  min-width: 900px !important;
+  width: 95% !important;
+  max-width: 1400px !important;
+}
+
+/* 添加全局样式 */
+:global(.el-overlay-dialog .wide-custom-dialog) {
+  min-width: 900px !important;
+  width: 95% !important;
+  max-width: 1400px !important;
+}
+
+.copy-artist-info-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #f56c6c;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: rotate(5deg);
+}
+
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* 艺人匹配容器样式 */
+.artist-matcher-container {
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.artist-matcher-container :deep(.el-form-item__content) {
+  display: block;
+  width: 100%;
+  margin-left: 0 !important;
+}
+
+/* 关联主歌手信息样式 */
+.canonical-artist-info {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.canonical-artist-name {
+  font-size: 13px;
+  color: #606266;
+}

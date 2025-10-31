@@ -1,0 +1,38 @@
+/* 全局样式 */
+:root {
+  /* Acmetone 设计系统变量 */
+  --garrix-black: #1d1d1f;
+  --garrix-white: #ffffff;
+  --garrix-grey: #86868b;
+  --garrix-border-grey: #d2d2d7;
+  --garrix-light-grey: #f8f9fa;
+  --garrix-font-primary: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+  font-family: var(--garrix-font-primary);
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light;
+  color: var(--garrix-black);
+  background-color: var(--garrix-white);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: var(--garrix-font-primary);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: var(--garrix-font-primary);
+}
+
+#app {
+  width: 100%;
+  margin: 0 auto;
+}

@@ -1,0 +1,30 @@
+{
+  "name": "acmetone-label-backend",
+  "version": "1.0.0",
+  "description": "Acmetone标签管理系统后端服务 - 微服务架构",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "echo \"暂无测试\" && exit 1"
+  },
+  "keywords": ["acmetone", "label", "backend", "microservice", "标签管理"],
+  "author": "Acmetone Team",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "axios": "^1.9.0",
+    "jsonwebtoken": "^9.0.2",
+    "express-rate-limit": "^7.3.1",
+    "helmet": "^7.1.0",
+    "mysql2": "^3.6.5",
+    "express-validator": "^7.0.1",
+    "multer": "^1.4.5-lts.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.2"
+  }
+}

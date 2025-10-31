@@ -1,0 +1,830 @@
+/* 极致简约、高端的苹果风格专辑列表页 */
+:root {
+  /* 核心颜色 */
+  --apple-blue: #0066CC;
+  --apple-dark: #1d1d1f;
+  --apple-light-gray: #f5f5f7;
+  
+  /* 扩展颜色 */
+  --apple-hover-blue: #0071e3;
+  --apple-secondary-text: #86868b;
+  --apple-success: #34c759;
+  --apple-warning: #ff9f0a;
+  --apple-error: #ff3b30;
+  
+  /* 设计元素 */
+  --apple-radius-large: 24px;
+  --apple-radius: 16px;
+  --apple-radius-small: 12px;
+  --apple-shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.06);
+  --apple-shadow-medium: 0 20px 40px rgba(0, 0, 0, 0.08);
+  --apple-shadow-strong: 0 30px 60px rgba(0, 0, 0, 0.12);
+  
+  /* 高级缓动曲线 */
+  --transition-bounce: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --transition-smooth: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-elastic: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-swift: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  --transition-fancy: all 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+  --transition-stardust: all 1.2s cubic-bezier(0.36, 0, 0.66, 1);
+}
+
+/* 页面基础 */
+.albums-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  color: var(--apple-dark);
+  background-color: #ffffff;
+  min-height: calc(100vh - 120px);
+  letter-spacing: -0.2px;
+  position: relative;
+  overflow: hidden;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* 背景装饰元素 */
+.albums-container::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0, 102, 204, 0.03) 0%, rgba(255, 255, 255, 0) 70%);
+  z-index: -1;
+  transform: translate(30%, 30%);
+}
+
+.albums-container::after {
+  content: "";
+  position: fixed;
+  bottom: -50%;
+  left: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0, 102, 204, 0.02) 0%, rgba(255, 255, 255, 0) 70%);
+  z-index: -1;
+  transform: translate(30%, -30%);
+}
+
+/* 页面头部卡片 */
+.page-header-card {
+  margin-bottom: 40px;
+  border-radius: var(--apple-radius-large) !important;
+  box-shadow: var(--apple-shadow-soft) !important;
+  border: none !important;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  position: relative;
+  z-index: 1;
+}
+
+.page-header-card:hover {
+  box-shadow: var(--apple-shadow-medium) !important;
+  transform: translateY(-3px) scale(1.01);
+}
+
+/* 添加光效悬浮元素 */
+.page-header-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+  transform: translate(-100%, -100%);
+  opacity: 0;
+  transition: opacity 1s var(--transition-swift);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.page-header-card:hover::before {
+  opacity: 0.15;
+  transform: translate(-75%, -75%);
+  transition: transform 1.5s var(--transition-fancy), opacity 0.8s ease;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 10px;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--apple-dark);
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  transform: translateX(0);
+  transition: var(--transition-swift);
+  position: relative;
+}
+
+.page-title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--apple-blue);
+  transition: width 0.6s var(--transition-elastic);
+}
+
+.page-header-card:hover .page-title::after {
+  width: 40px;
+}
+
+.page-subtitle {
+  margin: 10px 0 0;
+  font-size: 17px;
+  color: var(--apple-secondary-text);
+  letter-spacing: -0.2px;
+  transform: translateY(0);
+  transition: var(--transition-swift);
+  opacity: 0.8;
+}
+
+.page-header-card:hover .page-title {
+  transform: translateX(3px);
+}
+
+.page-header-card:hover .page-subtitle {
+  transform: translateY(-1px);
+  opacity: 1;
+}
+
+/* 创建按钮 */
+.create-button {
+  font-weight: 500;
+  padding: 12px 24px !important;
+  border-radius: 40px !important;
+  background-color: var(--apple-blue) !important;
+  border-color: var(--apple-blue) !important;
+  box-shadow: 0 5px 15px rgba(0, 102, 204, 0.2) !important;
+  transition: var(--transition-bounce) !important;
+  letter-spacing: -0.2px;
+  font-size: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.create-button:hover {
+  background-color: var(--apple-hover-blue) !important;
+  border-color: var(--apple-hover-blue) !important;
+  box-shadow: 0 8px 25px rgba(0, 102, 204, 0.3) !important;
+  transform: translateY(-3px) scale(1.03);
+}
+
+.create-button::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
+  transform: translate(-100%, -100%);
+  opacity: 0;
+  transition: transform 0.8s ease;
+}
+
+.create-button:hover::after {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.button-icon {
+  margin-right: 8px;
+  font-size: 18px;
+  transition: transform 0.4s var(--transition-elastic);
+}
+
+.create-button:hover .button-icon {
+  transform: rotate(90deg);
+}
+
+/* 专辑列表 */
+.album-list {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  position: relative;
+  z-index: 1;
+}
+
+/* 专辑卡片 */
+.album-card {
+  margin-bottom: 40px;
+  border-radius: var(--apple-radius) !important;
+  overflow: hidden;
+  transition: var(--transition-fancy);
+  border: none !important;
+  box-shadow: var(--apple-shadow-soft) !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  --album-bg-image: none;
+  transform-origin: center bottom;
+  transform: translateZ(0) rotateX(0) translateY(0);
+  backface-visibility: hidden;
+  will-change: transform, box-shadow, opacity;
+  transform-style: preserve-3d;
+}
+
+/* 交替背景样式 - 偶数卡片白色背景 */
+.el-col:nth-child(even) .album-card {
+  background-color: white;
+}
+
+/* 交替背景样式 - 奇数卡片使用封面作为背景 */
+.el-col:nth-child(odd) .album-card {
+  background-color: var(--apple-light-gray);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
+}
+
+.el-col:nth-child(odd) .album-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--album-bg-image);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.08;
+  z-index: 0;
+  transition: var(--transition-smooth);
+  filter: blur(8px);
+}
+
+/* 为每个卡片添加不同的动画延迟 */
+.el-col:nth-child(3n+1) .album-card {
+  animation: floatUp 1s var(--transition-fancy) both;
+  animation-delay: calc(0.1s * 1);
+}
+
+.el-col:nth-child(3n+2) .album-card {
+  animation: floatUp 1s var(--transition-fancy) both;
+  animation-delay: calc(0.1s * 2);
+}
+
+.el-col:nth-child(3n+3) .album-card {
+  animation: floatUp 1s var(--transition-fancy) both;
+  animation-delay: calc(0.1s * 3);
+}
+
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.album-card:hover {
+  transform: translateY(-8px) scale(1.02) rotateX(2deg);
+  box-shadow: var(--apple-shadow-medium) !important;
+}
+
+/* 奇数卡片悬停效果增强 */
+.el-col:nth-child(odd) .album-card:hover::before {
+  opacity: 0.15;
+  filter: blur(6px);
+  transform: scale(1.05);
+}
+
+.album-cover-container {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.album-cover-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 70%, rgba(0,0,0,0.3) 100%);
+  opacity: 0;
+  transition: opacity 0.5s var(--transition-smooth);
+  z-index: 1;
+}
+
+.album-card:hover .album-cover-container::before {
+  opacity: 1;
+}
+
+.album-cover {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+  transition: var(--transition-fancy);
+  z-index: 1;
+  filter: brightness(1);
+}
+
+.album-card:hover .album-cover {
+  transform: scale(1.05);
+  filter: brightness(1.05) contrast(1.05);
+}
+
+/* 封面背景元素 - 用于奇数卡片 */
+.album-cover-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  opacity: 0;
+  transition: var(--transition-fancy);
+  background-size: cover;
+  background-position: center;
+}
+
+/* 专辑状态标签 */
+.album-status {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 2;
+}
+
+.album-status .el-tag {
+  border-radius: 40px !important;
+  padding: 6px 16px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.1px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transform: translateY(0);
+  transition: var(--transition-bounce);
+}
+
+.album-card:hover .album-status .el-tag {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* 专辑信息 */
+.album-info {
+  padding: 25px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+/* 奇数卡片信息区域特殊样式 */
+.el-col:nth-child(odd) .album-info {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* 偶数卡片信息区域特殊样式 - 微妙的白色渐变 */
+.el-col:nth-child(even) .album-info {
+  background: linear-gradient(to bottom, #ffffff 0%, #f9f9f9 100%);
+  border-top: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.album-title {
+  margin: 0 0 18px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--apple-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.3px;
+  transition: var(--transition-swift);
+  transform: translateX(0);
+}
+
+.album-card:hover .album-title {
+  transform: translateX(3px);
+  color: var(--apple-blue);
+}
+
+.album-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  flex-grow: 1;
+}
+
+.album-meta p {
+  margin: 0;
+  font-size: 15px;
+  color: var(--apple-secondary-text);
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.2px;
+  transition: var(--transition-smooth);
+  transform: translateY(0);
+}
+
+.album-card:hover .album-meta p {
+  transform: translateY(-2px);
+}
+
+.album-meta .el-icon {
+  margin-right: 8px;
+  font-size: 18px;
+  color: var(--apple-blue);
+  transition: var(--transition-elastic);
+  transform: scale(1);
+}
+
+.album-card:hover .album-meta .el-icon {
+  transform: scale(1.2);
+}
+
+/* 详情按钮 */
+.detail-button {
+  width: 100%;
+  border-radius: 40px !important;
+  padding: 12px 0 !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  letter-spacing: -0.2px;
+  background-color: var(--apple-blue) !important;
+  border-color: var(--apple-blue) !important;
+  box-shadow: 0 5px 15px rgba(0, 102, 204, 0.15) !important;
+  transition: var(--transition-elastic) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.detail-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: var(--transition-swift);
+}
+
+.detail-button:hover {
+  background-color: var(--apple-hover-blue) !important;
+  border-color: var(--apple-hover-blue) !important;
+  box-shadow: 0 8px 25px rgba(0, 102, 204, 0.25) !important;
+  transform: translateY(-3px) scale(1.02);
+}
+
+.detail-button:hover::before {
+  left: 100%;
+}
+
+/* 奇数卡片的详情按钮样式 */
+.el-col:nth-child(odd) .detail-button {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* 时空穿越动画效果 */
+.detail-button.time-travel-active {
+  animation: buttonPulse 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes buttonPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 5px 15px rgba(0, 102, 204, 0.15);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(0, 102, 204, 0.4);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 50px rgba(0, 102, 204, 0.6);
+  }
+}
+
+/* 页面过渡动画 */
+.time-travel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 102, 204, 0);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.time-travel-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  animation: timeTravelEffect 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes timeTravelEffect {
+  0% {
+    background: rgba(0, 102, 204, 0);
+    backdrop-filter: blur(0);
+  }
+  20% {
+    background: rgba(0, 102, 204, 0.1);
+    backdrop-filter: blur(5px) brightness(1.2);
+  }
+  50% {
+    background: rgba(0, 102, 204, 0.2);
+    backdrop-filter: blur(15px) brightness(1.5);
+  }
+  80% {
+    background: rgba(0, 102, 204, 0.3);
+    backdrop-filter: blur(30px) brightness(2);
+  }
+  100% {
+    background: rgba(0, 102, 204, 0.1);
+    backdrop-filter: blur(0) brightness(1);
+  }
+}
+
+.time-travel-stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.time-travel-stars.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 10000;
+}
+
+.time-travel-stars.active .star {
+  animation: starFly 1s linear forwards;
+}
+
+@keyframes starFly {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateZ(0);
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.1) translateZ(2000px);
+  }
+}
+
+/* 新增：星尘散开效果 */
+.album-card.stardust-scatter {
+  animation: none !important;
+  transition: var(--transition-stardust) !important;
+  transform: scale(0.8) translateZ(0) !important;
+  opacity: 0 !important;
+  filter: blur(10px);
+}
+
+/* 根据不同位置的卡片，设置不同的散开方向 */
+.el-col:nth-child(3n+1) .album-card.stardust-scatter {
+  transform: scale(0.6) translate(-300px, 100px) rotate(-15deg) !important;
+}
+
+.el-col:nth-child(3n+2) .album-card.stardust-scatter {
+  transform: scale(0.5) translate(0, -300px) rotate(10deg) !important;
+}
+
+.el-col:nth-child(3n+3) .album-card.stardust-scatter {
+  transform: scale(0.7) translate(300px, 150px) rotate(20deg) !important;
+}
+
+/* 卡片时空穿越效果 - 修改为封面放大效果 */
+.album-card.time-travel {
+  animation: none !important;
+  transition: var(--transition-stardust) !important;
+  position: fixed !important;
+  z-index: 1000 !important;
+  box-shadow: var(--apple-shadow-strong) !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) scale(1.1) !important;
+  width: 90vw !important;
+  max-width: 600px !important;
+  height: auto !important;
+}
+
+/* 封面放大效果 */
+.album-card.time-travel .album-cover {
+  height: 50vh !important;
+  max-height: 500px !important;
+  transform: scale(1.05) !important;
+  transition: var(--transition-stardust) !important;
+  filter: brightness(1.1) contrast(1.1) !important;
+}
+
+/* 信息区域淡出 */
+.album-card.time-travel .album-info {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease-out;
+}
+
+/* 最终穿越效果 */
+.album-card.time-travel.final-zoom {
+  animation: finalZoom 1s cubic-bezier(0.19, 1, 0.22, 1) forwards !important;
+}
+
+@keyframes finalZoom {
+  0% {
+    transform: translate(-50%, -50%) scale(1.1);
+    filter: brightness(1) blur(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    filter: brightness(1.3) blur(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    filter: brightness(1.5) blur(10px);
+    opacity: 0;
+  }
+}
+
+/* 页面淡出效果 */
+.albums-container.time-travel .page-header-card {
+  transition: var(--transition-stardust) !important;
+  opacity: 0;
+  transform: translateY(-50px);
+}
+
+/* 粒子效果 */
+.stardust-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(0, 102, 204, 0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 900;
+  opacity: 0;
+  box-shadow: 0 0 10px 2px rgba(0, 102, 204, 0.4);
+}
+
+.stardust-particle.active {
+  animation: particleFly 1.5s cubic-bezier(0.36, 0, 0.66, 1) forwards;
+}
+
+@keyframes particleFly {
+  0% {
+    opacity: 0;
+    transform: scale(0) translate(0, 0);
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) translate(var(--tx), var(--ty));
+  }
+}
+
+/* 空状态 */
+.el-empty {
+  padding: 80px 0;
+  transition: var(--transition-bounce);
+}
+
+.el-empty:hover {
+  transform: scale(1.05);
+}
+
+.el-empty__description {
+  font-size: 18px;
+  color: var(--apple-secondary-text);
+  margin-top: 20px;
+  letter-spacing: -0.2px;
+  transition: var(--transition-smooth);
+}
+
+.el-empty__image {
+  transform: scale(1.2);
+  transition: var(--transition-bounce);
+}
+
+.el-empty:hover .el-empty__image {
+  transform: scale(1.3) translateY(-5px);
+}
+
+/* 加载状态 */
+.el-loading-mask {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.el-loading-spinner {
+  transform: scale(1.2);
+}
+
+.el-loading-spinner .path {
+  stroke: var(--apple-blue) !important;
+  stroke-dasharray: 90, 150;
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite, rotate 2s linear infinite;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .albums-container {
+    padding: 40px 20px;
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  
+  .page-title {
+    font-size: 28px;
+  }
+  
+  .album-cover {
+    height: 200px;
+  }
+  
+  .album-info {
+    padding: 20px;
+  }
+} 

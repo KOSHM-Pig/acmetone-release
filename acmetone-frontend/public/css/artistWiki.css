@@ -1,0 +1,35 @@
+.search-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  
+  .search-row .el-input {
+    flex: 1;
+  }
+  
+  .add-artist-button {
+    white-space: nowrap;
+  }
+  
+  .user-artist-note {
+    margin-bottom: 16px;
+  }
+  
+  .user-artist-note :deep(.el-alert) {
+    padding: 8px 16px;
+    border-radius: 4px;
+  }
+  
+  .user-artist-note :deep(.el-alert__content) {
+    padding: 0 8px;
+  }
+  
+  .user-artist-note p {
+    margin: 6px 0;
+    line-height: 1.4;
+  }
+  
+  .user-artist-note :deep(.el-alert__icon) {
+    font-size: 16px;
+  }

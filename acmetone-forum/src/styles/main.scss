@@ -1,0 +1,308 @@
+/* 
+===============================
+   Acmetone音乐交流平台 - 主样式
+=============================== 
+*/
+
+/* 重置和基础样式 */
+:root {
+  /* Martin Garrix 风格黑色主题 */
+  --acmetone-black: #000000;
+  --acmetone-dark-gray: #111111;
+  --acmetone-gray: #222222;
+  --acmetone-light-gray: #333333;
+  --acmetone-white: #ffffff;
+  --acmetone-off-white: #f5f5f5;
+  --acmetone-accent: #ffffff;
+  --acmetone-hover: #bac0cc;
+  --acmetone-border: #333333;
+  --acmetone-text: #ffffff;
+  --acmetone-text-secondary: #999999;
+  --acmetone-success: #4cd964;
+  --acmetone-warning: #ffcc00;
+  --acmetone-danger: #ff3b30;
+  --acmetone-success-bg: rgba(76, 217, 100, 0.15);
+  --acmetone-warning-bg: rgba(255, 204, 0, 0.15);
+  --acmetone-danger-bg: rgba(255, 59, 48, 0.15);
+  --acmetone-header-height: 90px;
+  --acmetone-transition: all 0.3s ease;
+
+  /* 音乐类别颜色 */
+  --genre-bass-house: #FF00E0;
+  --genre-big-room: #FFCC00;
+  --genre-brazilian-bass: #DC0096;
+  --genre-dance: #E600FF;
+  --genre-deep-house: #008DFF;
+  --genre-drum-and-bass: #FF4D4D;
+  --genre-dubstep: #ff7700;
+  --genre-edm: #00c8ff;
+  --genre-electro-house: #FFEA00;
+  --genre-future-bass: #A500FF;
+  --genre-future-bounce: #00E0FF;
+  --genre-future-house: #2A7FFF;
+  --genre-future-pop: #00FFC2;
+  --genre-hip-hop: #9BE000;
+  --genre-house: #00ff88;
+  --genre-hybrid-trap: #FF006D;
+  --genre-melbourne-bounce: #00FF3F;
+  --genre-minimal: #A0A0A0;
+  --genre-pop: #FF66CC;
+  --genre-progressive-house: #6A00FF;
+  --genre-psytrance: #E0C800;
+  --genre-riddim: #00FFE2;
+  --genre-synthwave: #FF00AA;
+  --genre-tech-house: #009664;
+  --genre-techno: #ff00a8;
+  --genre-trance: #9d00ff;
+  --genre-trap: #FF3333;
+  --genre-tropical-house: #00E496;
+  --genre-urban: #ADFF33;
+  --genre-vocal: #FFB300;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  color-scheme: dark; // 禁用浏览器自动深色模式转换
+  background-color: var(--acmetone-black);
+  color: var(--acmetone-text);
+  font-family: $font-primary;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--acmetone-text);
+  text-decoration: none;
+  transition: var(--acmetone-transition);
+}
+
+a:hover {
+  color: var(--acmetone-hover);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--acmetone-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--acmetone-white);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--acmetone-hover);
+}
+
+/* 通用容器 */
+.container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $container-padding;
+}
+
+/* 按钮样式 */
+.garrix-button {
+  background-color: var(--acmetone-white);
+  color: var(--acmetone-black);
+  border: none;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: var(--acmetone-transition);
+  border-radius: 0;
+}
+
+.garrix-button:hover {
+  background-color: var(--acmetone-hover);
+  color: var(--acmetone-black);
+}
+
+.garrix-button-outline {
+  background-color: transparent;
+  color: var(--acmetone-white);
+  border: 1px solid var(--acmetone-white);
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: var(--acmetone-transition);
+  border-radius: 0;
+}
+
+.garrix-button-outline:hover {
+  background-color: var(--acmetone-white);
+  color: var(--acmetone-black);
+}
+
+/* 文本框样式 */
+.el-textarea__inner {
+  background: var(--acmetone-gray);
+  border: none;
+  border-radius: 0;
+  color: var(--acmetone-text);
+  box-shadow: none;
+  padding: 10px 15px;
+
+  &:focus {
+    box-shadow: 0 0 0 1px var(--acmetone-white);
+  }
+}
+
+.el-input__wrapper,
+.el-textarea__wrapper {
+  background-color: var(--acmetone-gray);
+  box-shadow: none;
+}
+
+.el-input__wrapper.is-focus {
+  box-shadow: 0 0 0 1px var(--acmetone-white) inset;
+}
+
+/* 卡片样式 */
+.garrix-card {
+  background-color: var(--acmetone-dark-gray);
+  border: none;
+  border-radius: 0;
+  overflow: hidden;
+  transition: var(--acmetone-transition);
+}
+
+.garrix-card:hover {
+  transform: translateY(-5px);
+}
+
+/* 标题样式 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 20px 0;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+/* 页面区域 */
+.page-section {
+  padding: 80px 0;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.page-title h2 {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 15px;
+}
+
+.page-title h2:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--acmetone-white);
+}
+
+/* 响应式设计 */
+@media (max-width: $breakpoint-lg) {
+  .container {
+    padding: 0 $spacing-lg;
+  }
+
+  .page-section {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  h1 {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  .page-section {
+    padding: 40px 0;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  .container {
+    padding: 0 $spacing-md;
+  }
+
+  .page-section {
+    padding: 30px 0;
+  }
+}

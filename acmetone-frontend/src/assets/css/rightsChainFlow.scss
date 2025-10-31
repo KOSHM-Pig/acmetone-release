@@ -1,0 +1,359 @@
+// 权利链条流程图视觉样式
+// 参考 Apple 官网设计风格 (https://www.apple.com.cn/store)
+
+// 颜色变量
+$primary-blue: #0071e3;
+$primary-blue-hover: #0077ed;
+$primary-blue-active: #006edb;
+$danger-red: #fa5252;
+$danger-red-hover: #ff6b6b;
+$danger-red-active: #f03e3e;
+$success-green: #34c759;
+$text-primary: #1d1d1f;
+$text-secondary: #86868b;
+$background-light: #f5f5f7;
+$border-color: #d2d2d7;
+
+// 通用转换动画
+@mixin transition-ease {
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+// 节点样式
+.rights-chain-flow {
+  .node {
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    border: none;
+    font-family: "SF Pro Text", "SF Pro Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    
+    // 节点内容布局
+    .node-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    // 节点标题
+    .node-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: $text-primary;
+    }
+    
+    // 节点子标题
+    .node-subtitle {
+      font-size: 12px;
+      color: $text-secondary;
+      margin-bottom: 4px;
+    }
+    
+    // 节点头部图标和文字
+    .node-header {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      
+      .el-icon {
+        font-size: 18px;
+      }
+    }
+  }
+  
+  // 专辑节点
+  .album-node {
+    background: linear-gradient(145deg, #f0f7ff, #e6f2ff);
+    border-left: 3px solid $primary-blue;
+    
+    .node-header {
+      color: $primary-blue;
+    }
+  }
+  
+  // 歌曲节点
+  .song-node {
+    background: linear-gradient(145deg, #f3fff0, #e9ffdf);
+    border-left: 3px solid $success-green;
+    
+    .node-header {
+      color: darken($success-green, 10%);
+    }
+    
+    // 歌曲节点内的统计信息
+    .node-stats {
+      padding: 8px 0;
+      
+      .artists-auth-progress {
+        margin-bottom: 8px;
+      }
+      
+      .artists-auth-text {
+        font-size: 12px;
+        color: $text-secondary;
+        text-align: center;
+        margin-top: 4px;
+      }
+      
+      .stats-label {
+        font-weight: 500;
+        color: $text-primary;
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+    }
+  }
+  
+  // 歌手节点
+  .artist-node {
+    background: linear-gradient(145deg, #f7f7f7, #ededed);
+    border-left: 3px solid $text-secondary;
+    
+    .node-header {
+      color: $text-secondary;
+    }
+  }
+}
+
+// 美化按钮样式
+.rights-chain-flow {
+  // 查看授权文件按钮 (Apple风格蓝色按钮)
+  .view-auth-btn {
+    @include transition-ease;
+    display: inline-block;
+    background-color: $primary-blue;
+    color: white;
+    border: none;
+    border-radius: 980px; // Apple使用大圆角
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+    text-align: center;
+    
+    &:hover {
+      background-color: $primary-blue-hover;
+      transform: scale(1.02);
+    }
+    
+    &:active {
+      background-color: $primary-blue-active;
+      transform: scale(0.98);
+    }
+    
+    .el-icon {
+      margin-right: 4px;
+      font-size: 12px;
+    }
+  }
+  
+  // 上传授权文件按钮 (Apple风格边框按钮)
+  .upload-auth-btn {
+    @include transition-ease;
+    display: inline-block;
+    background-color: transparent;
+    color: $danger-red;
+    border: 1px solid $danger-red;
+    border-radius: 980px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+    text-align: center;
+    
+    &:hover {
+      background-color: rgba($danger-red, 0.05);
+      color: $danger-red-hover;
+      border-color: $danger-red-hover;
+      transform: scale(1.02);
+    }
+    
+    &:active {
+      background-color: rgba($danger-red, 0.1);
+      color: $danger-red-active;
+      border-color: $danger-red-active;
+      transform: scale(0.98);
+    }
+    
+    .el-icon {
+      margin-right: 4px;
+      font-size: 12px;
+    }
+  }
+  
+  // 未上传授权状态
+  .no-auth {
+    color: $text-secondary;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    
+    .el-icon {
+      color: $danger-red;
+    }
+  }
+}
+
+// 悬浮统计卡片美化
+.auth-stats-floating {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  
+  .stats-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 240px;
+    
+    .stats-header {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 16px;
+      color: $text-primary;
+      border-bottom: 1px solid rgba($border-color, 0.5);
+      padding-bottom: 10px;
+    }
+    
+    .stats-content {
+      margin-bottom: 16px;
+      
+      .stats-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        font-size: 14px;
+        gap: 8px;
+      }
+    }
+    
+    .stats-footer {
+      border-top: 1px solid rgba($border-color, 0.5);
+      padding-top: 12px;
+    }
+    
+    .success-icon {
+      color: $success-green;
+      font-size: 16px;
+    }
+    
+    .warning-icon {
+      color: #ff9500; // Apple橙色警告色
+      font-size: 16px;
+    }
+  }
+}
+
+// 重置布局按钮
+.reset-layout-btn {
+  .el-button.reset-btn {
+    @include transition-ease;
+    background-color: #ffffff;
+    color: $text-primary;
+    border: 1px solid $border-color;
+    border-radius: 980px;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 8px 16px;
+    
+    &:hover {
+      background-color: #f5f5f7;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      background-color: #ebebeb;
+      transform: translateY(1px);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+    
+    .el-icon {
+      color: $text-primary;
+      font-size: 14px;
+      margin-right: 6px;
+    }
+    
+    span {
+      font-size: 13px;
+    }
+  }
+}
+
+// 流程图整体容器
+.flow-wrapper {
+  border: none !important;
+  border-radius: 16px !important;
+  background-color: $background-light;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+}
+
+// 边缘连线美化
+.rights-chain-flow {
+  :deep(.vue-flow__edge) {
+    path {
+      stroke-width: 2;
+      stroke: #d1d1d6;
+    }
+    
+    .vue-flow__edge-text {
+      font-size: 11px;
+      fill: $text-secondary;
+      font-weight: 500;
+    }
+    
+    &.selected, &:focus, &:focus-visible {
+      path {
+        stroke: $primary-blue;
+      }
+    }
+  }
+
+  // 控制器美化
+  :deep(.vue-flow__controls) {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    
+    button {
+      background: white;
+      border: none;
+      border-bottom: 1px solid $border-color;
+      color: $text-primary;
+      width: 32px;
+      height: 32px;
+      
+      &:hover {
+        background: $background-light;
+      }
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  // 小地图美化
+  :deep(.vue-flow__minimap) {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// 文件预览对话框
+.pdf-preview-container {
+  border-radius: 12px;
+  overflow: hidden;
+} 

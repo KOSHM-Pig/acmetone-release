@@ -1,0 +1,405 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 0;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.el-main {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  background-color: #ffffff;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* Garrix Style Buttons */
+.garrix-btn, .garrix-btn-secondary, .garrix-btn-toggle {
+  background: #fff;
+  border: 2px solid #000;
+  color: #000;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  padding: 0 25px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+}
+.garrix-btn:hover, .garrix-btn-toggle.active {
+  background: #000;
+  color: #fff;
+}
+.garrix-btn[disabled] {
+  background: #e0e0e0;
+  border-color: #e0e0e0;
+  color: #aaa;
+  cursor: not-allowed;
+}
+.garrix-btn-secondary {
+  background: #f2f2f2;
+  border-color: #f2f2f2;
+}
+.garrix-btn-secondary:hover {
+  background: #e0e0e0;
+  border-color: #e0e0e0;
+}
+
+/* Custom Garrix Style for Date Picker Panel */
+.el-picker-panel {
+  background: #fff !important;
+  border: 2px solid #000 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.el-picker-panel__body {
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.el-date-picker__header {
+  padding: 12px 18px !important;
+  margin: 0 !important;
+  border-bottom: 2px solid #000 !important;
+}
+
+.el-date-picker__header-label,
+.el-picker-panel__icon-btn {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  color: #000 !important;
+  font-size: 1rem !important;
+}
+.el-picker-panel__icon-btn:hover {
+  color: #888 !important;
+}
+
+
+.el-date-table {
+  width: 100%;
+}
+
+.el-date-table th {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  color: #888 !important;
+  border-bottom: 1px solid #eee;
+}
+
+.el-date-table-cell {
+  padding: 4px 0 !important;
+  border-radius: 0 !important;
+}
+
+.el-date-table-cell .el-date-table-cell__text {
+  font-family: 'Montserrat', sans-serif !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 0 !important;
+  line-height: 32px !important;
+  box-sizing: border-box;
+  font-weight: 600;
+  color: #888 !important;
+  background-color: transparent !important;
+}
+
+/* Lighter grey for other months */
+.el-date-table-cell.prev-month .el-date-table-cell__text,
+.el-date-table-cell.next-month .el-date-table-cell__text {
+  color: #ccc !important;
+}
+
+/* Keep current month text a bit darker */
+.el-date-table-cell.current .el-date-table-cell__text {
+    color: #555 !important;
+}
+
+.el-date-table-cell:hover .el-date-table-cell__text {
+  background-color: #f2f2f2 !important;
+  color: #000 !important;
+}
+
+.el-date-table-cell.today .el-date-table-cell__text {
+  border: 2px solid #000 !important;
+  font-weight: 700 !important;
+  color: #000 !important;
+}
+
+/* Selected date style */
+.el-date-table-cell.is-selected .el-date-table-cell__text {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: none !important;
+}
+.el-date-table-cell.is-selected:hover .el-date-table-cell__text {
+    background-color: #000 !important;
+}
+
+.el-picker-panel__footer {
+  border-top: 2px solid #000 !important;
+  padding: 8px 18px !important;
+}
+
+/* Override element-plus button in date picker footer */
+.el-picker-panel__footer .el-button {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 5px 15px !important;
+}
+.el-picker-panel__footer .el-button--text {
+  color: #000 !important;
+  background-color: transparent !important;
+}
+.el-picker-panel__footer .el-button--text:hover {
+  background-color: #f2f2f2 !important;
+}
+.el-picker-panel__footer .el-button--primary {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+.el-picker-panel__footer .el-button--primary:hover {
+  background-color: #333 !important;
+}
+
+/* --- Global Garrix Input Styles --- */
+.garrix-input .el-input__wrapper,
+.garrix-textarea .el-textarea__inner,
+.garrix-date-picker .el-input__wrapper {
+  border-radius: 0 !important;
+  border: 2px solid #ccc !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 15px !important;
+  height: 100%;
+  transition: border-color 0.3s ease !important;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+}
+
+.garrix-textarea .el-textarea__inner {
+  height: auto;
+  min-height: 100px;
+  padding: 10px 15px !important;
+  width: 100%;
+}
+
+.garrix-input .el-input__wrapper:hover,
+.garrix-textarea .el-textarea__inner:hover,
+.garrix-date-picker .el-input__wrapper:hover {
+  border-color: #888 !important;
+}
+
+.garrix-input .el-input__wrapper.is-focus,
+.garrix-textarea .el-textarea__inner:focus,
+.garrix-date-picker .el-input__wrapper.is-focus {
+   border-color: #000 !important;
+   box-shadow: none !important;
+}
+
+/* 专辑表演者卡片样式 - 使用特定前缀避免冲突 */
+.acm-performers-container {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.acm-performers-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+  width: 100%;
+}
+
+.acm-performer-card {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border: 2px solid #000;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.acm-performer-card:hover {
+  background-color: #f9f9f9;
+}
+
+.acm-pf-number {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 24px;
+  height: 24px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.acm-drag-handle {
+  cursor: move;
+  margin-right: 15px;
+  color: #888;
+  font-size: 16px;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.acm-performer-card:hover .acm-drag-handle {
+  color: #000;
+}
+
+.acm-performer-name {
+  flex-grow: 1;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.acm-remove-performer-icon {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  transition: all 0.2s ease;
+}
+
+.acm-remove-performer-icon:hover {
+  color: #ff3b30;
+}
+
+/* 搜索框和下拉菜单容器 */
+.acm-search-box-container {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+/* 全局移除 el-select 的圆角框样式 */
+.el-dialog .black-border-wrapper .el-select .el-select__wrapper {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* 添加黑白风格下拉菜单全局样式 */
+.garrix-select-popper.el-select-dropdown {
+  background-color: #ffffff !important;
+  border: 2px solid #000000 !important;
+  border-radius: 0 !important;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.15) !important;
+  margin-top: 5px !important;
+  overflow: hidden !important;
+}
+
+/* 移除下拉菜单内部的所有圆角和边框 */
+.garrix-select-popper.el-select-dropdown *,
+.garrix-select-popper.el-select-dropdown *::before,
+.garrix-select-popper.el-select-dropdown *::after {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.garrix-select-popper.el-select-dropdown .el-select-dropdown__item {
+  color: #000000 !important;
+  font-size: 16px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  padding: 0 15px !important;
+  transition: all 0.2s ease !important;
+}
+
+.garrix-select-popper.el-select-dropdown .el-select-dropdown__item.hover,
+.garrix-select-popper.el-select-dropdown .el-select-dropdown__item:hover {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.garrix-select-popper.el-select-dropdown .el-select-dropdown__item.selected {
+  background-color: #f0f0f0 !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  border-left: 3px solid #000000 !important;
+}
+
+.garrix-select-popper.el-select-dropdown .el-popper__arrow {
+  display: none !important;
+}

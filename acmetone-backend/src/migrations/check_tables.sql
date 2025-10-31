@@ -1,0 +1,14 @@
+-- 检查 artists 表结构
+DESCRIBE artists;
+
+-- 检查 artisteditrequests 表结构
+DESCRIBE artisteditrequests;
+
+-- 检查是否有身份证号码字段
+SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'artists' AND COLUMN_NAME = 'id_number';
+
+SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'artisteditrequests' AND COLUMN_NAME = 'new_id_number'; 

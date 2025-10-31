@@ -1,0 +1,2228 @@
+.flow-editor {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f7f8fa;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2000;
+    font-family: 'HarmonyOS Sans SC', 'Inter', sans-serif;
+  }
+  
+  /* 编辑器头部样式 - 高级感三区布局 */
+  .editor-header-premium {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    padding: 0 24px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .header-zone {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header-zone.left {
+    justify-content: flex-start;
+    flex: 1;
+  }
+  .header-zone.center {
+    justify-content: center;
+    flex: 2;
+    gap: 12px;
+  }
+  .header-zone.right {
+    justify-content: flex-end;
+    flex: 1;
+  }
+  
+  .back-btn-premium {
+    background-color: transparent;
+    border: none;
+    color: #4b5563;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .back-btn-premium:hover {
+    background-color: #f3f4f6;
+    color: #1f2937;
+  }
+  
+  .album-cover-premium {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background-color: #f3f4f6;
+    flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .album-info-premium {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .album-title-premium {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f2937;
+    line-height: 1.3;
+  }
+  
+  .album-meta-premium {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #6b7280;
+  }
+  
+  .meta-separator {
+    width: 1px;
+    height: 12px;
+    background-color: #d1d5db;
+  }
+  
+  .status-badge-premium {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+  .status-badge-premium::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  
+  .status-badge.status-draft, .status-badge-premium.status-draft::before {
+    background-color: #d1d5db;
+  }
+  .status-badge.status-pending, .status-badge-premium.status-pending::before {
+    background-color: #f59e0b;
+  }
+  .status-badge.status-approved, .status-badge-premium.status-approved::before {
+    background-color: #10b981;
+  }
+  .status-badge.status-rejected, .status-badge-premium.status-rejected::before {
+    background-color: #ef4444;
+  }
+  /* 移除了旧的状态标签背景色，统一由新逻辑处理 */
+  .status-badge {
+    color: #374151;
+    background-color: transparent;
+  }
+  
+  .action-btn-premium {
+    font-weight: 500;
+    border-radius: 6px;
+    border: none;
+  }
+  /* 覆盖旧样式 */
+  .editor-header {
+    display: none;
+  }
+  
+  .editor-main {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .loading-container {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+  
+  .loading-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 4px solid #e5e7eb;
+    border-top-color: #4f46e5;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  .loading-container span {
+    font-size: 14px;
+    color: #4b5563;
+    font-weight: 500;
+  }
+  
+  .error-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8fafb;
+    padding: 24px;
+  }
+  
+  .flow-canvas-container {
+    flex: 1;
+    height: 100%;
+  }
+  
+  :deep(.vue-flow__edge-path) {
+    stroke: #4f46e5;
+    stroke-width: 2px;
+  }
+  
+  .editor-sidebar {
+    width: 260px;
+    background-color: #fff;
+    border-left: 1px solid #e5e7eb;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar-content {
+    padding: 20px;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
+  .sidebar-header {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 16px;
+  }
+  
+  .node-types {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .node-type {
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: grab;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    color: #374151;
+  }
+  
+  .node-type:hover {
+    border-color: #4f46e5;
+    background-color: #eef2ff;
+    color: #4f46e5;
+  }
+  
+  .node-type:active {
+    cursor: grabbing;
+  }
+  
+  .node-type .el-icon {
+    font-size: 18px;
+  }
+  
+  /* --- Node Styles --- */
+  .flow-node {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.07), 0 1px 2px -1px rgba(0, 0, 0, 0.07);
+    width: 220px;
+    overflow: hidden;
+  }
+  
+  :deep(.vue-flow__node.selected) .flow-node {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 1px #4f46e5;
+  }
+  
+  .node-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  .node-body {
+    padding: 12px;
+    font-size: 12px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .file-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #6b7280;
+  }
+  
+  /* Node Type Specifics */
+  .song-node .node-header {
+    background-color: #f0fdf4;
+    color: #15803d;
+  }
+  .artist-node .node-header {
+    background-color: #eef2ff;
+    color: #4338ca;
+  }
+  .album-node {
+    border-radius: 8px;
+    padding: 0;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.06);
+  }
+  .album-node .node-header {
+    border-radius: 8px 8px 0 0;
+    background-color: #ecfdf5;
+    color: #047857;
+    padding: 10px 16px;
+    justify-content: center;
+  }
+  
+  /* --- Floating Panel Styles --- */
+  .node-details-panel {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+    padding: 16px;
+    width: 300px;
+    z-index: 10;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .panel-header h4 {
+    margin: 0;
+    font-weight: 600;
+    color: #111827;
+    font-size: 16px;
+  }
+  
+  .panel-header .el-button {
+    border: none;
+    background: transparent;
+    width: 32px;
+    height: 32px;
+  }
+  
+  .panel-content {
+    padding: 16px 24px 24px;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
+  .node-properties-panel .el-form-item {
+    margin-bottom: 20px;
+  }
+  
+  :deep(.node-properties-panel .el-form-item__label) {
+    color: #333;
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 8px !important;
+    padding: 0 !important;
+    font-weight: 500;
+  }
+  
+  :deep(.node-properties-panel .el-input__wrapper),
+  :deep(.node-properties-panel .el-select .el-select__wrapper) {
+    border-radius: 6px !important;
+    box-shadow: none !important;
+    border: 1px solid #dcdfe6 !important;
+    transition: border-color 0.2s ease;
+    &:hover {
+      border-color: #c0c4cc !important;
+    }
+  }
+  
+  :deep(.node-properties-panel .el-input__wrapper.is-focus),
+  :deep(.node-properties-panel .el-select .el-select__wrapper.is-focused) {
+    border-color: var(--el-color-primary) !important;
+    box-shadow: 0 0 0 1px var(--el-color-primary-light-7) !important;
+  }
+  
+  .file-upload-wrapper {
+    width: 100%;
+  }
+  
+  .file-upload-wrapper > .el-button {
+    width: 100%;
+  }
+  
+  .file-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .file-info {
+    display: flex;
+    align-items: center;
+    background-color: #fafafa;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+    padding: 4px 12px;
+    flex-grow: 1;
+    margin-right: 8px;
+    overflow: hidden;
+  }
+  
+  .file-info .el-icon {
+    margin-right: 8px;
+    color: #606266;
+    font-size: 16px;
+  }
+  
+  .file-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    color: #303133;
+  }
+  
+  .file-status .el-button {
+    flex-shrink: 0;
+  }
+  
+  /* 重写Vue Flow节点样式 - Coze风格 */
+  :deep(.vue-flow__node-default), :deep(.vue-flow__node-input), :deep(.vue-flow__node-output) {
+    border-radius: 8px !important;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.06);
+    padding: 0 !important;
+    background: #fff;
+    transition: box-shadow .3s ease;
+    width: auto !important;
+    min-width: 200px;
+  }
+  
+  :deep(.vue-flow__node-default.selected), :deep(.vue-flow__node-input.selected), :deep(.vue-flow__node-output.selected) {
+      box-shadow: 0 0 0 2px var(--el-color-primary), 0 4px 12px rgba(0,0,0,0.1) !important;
+  }
+  
+  /* 为新的专辑节点添加特殊样式 */
+  :deep(.vue-flow__node-album) {
+    background: white;
+    color: #333;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    width: 220px !important;
+  }
+  :deep(.vue-flow__node-album .vue-flow__handle) {
+    background: #fff !important;
+  }
+  :deep(.vue-flow__node-album.selected) {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #764ba2 !important;
+  }
+  
+  .artist-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+  }
+  .empty-text {
+    font-size: 12px;
+    color: #909399;
+    width: 100%;
+  }
+  
+  .node-connection-tip {
+    font-size: 11px;
+    color: #909399;
+    font-style: italic;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed #e8e8e8;
+    text-align: center;
+  }
+  
+  /* 增强连接点样式 */
+  :deep(.vue-flow__handle) {
+    width: 10px;
+    height: 10px;
+    background-color: #4f46e5;
+    border: 2px solid white;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  :deep(.vue-flow__handle:hover) {
+    transform: scale(1.2);
+    background-color: #10b981;
+    cursor: crosshair;
+  }
+  
+  /* 连接线在激活时的样式 */
+  :deep(.vue-flow__connection-path) {
+    stroke: #4f46e5;
+    stroke-width: 2px;
+    stroke-dasharray: 5;
+    animation: flowPathAnimation 30s linear infinite;
+  }
+  
+  @keyframes flowPathAnimation {
+    to {
+      stroke-dashoffset: 1000;
+    }
+  }
+  
+  /* 高亮可连接的节点 */
+  :deep(.vue-flow__node.highlight-node) {
+    box-shadow: 0 0 0 2px #10b981, 0 0 10px rgba(16, 185, 129, 0.5);
+    transform: scale(1.05);
+    z-index: 10;
+  }
+  
+  /* 增强连接线样式 */
+  :deep(.vue-flow__edge) {
+    transition: opacity 0.3s ease;
+  }
+  
+  :deep(.vue-flow__edge:hover), :deep(.vue-flow__edge.selected) {
+    z-index: 10;
+  }
+  
+  :deep(.vue-flow__edge:hover .vue-flow__edge-path), :deep(.vue-flow__edge.selected .vue-flow__edge-path) {
+    stroke-width: 3px;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.3));
+  }
+  
+  /* 添加连接线标签样式 */
+  :deep(.vue-flow__edge-text) {
+    font-size: 12px;
+    font-weight: 500;
+    fill: #4b5563;
+    paint-order: stroke;
+    stroke: white;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  
+  /* 控制组件和小地图样式调整 */
+  :deep(.vue-flow__controls) {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  :deep(.vue-flow__minimap) {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  /* 添加自定义连接点样式 */
+  .connection-handles {
+    display: none;
+  }
+  
+  .handle-info {
+    display: none;
+  }
+  
+  .handle-dot {
+    display: none;
+  }
+  
+  .input-handle .handle-dot {
+    display: none;
+  }
+  
+  .output-handle .handle-dot {
+    display: none;
+  }
+  
+  /* 增强连接点可见性 */
+  :deep(.custom-handle) {
+    width: 14px;
+    height: 14px;
+    background-color: #fff;
+    border: 2px solid;
+    box-shadow: 0 0 0 2px white;
+    z-index: 3;
+  }
+  
+  :deep(.input-handle-top) {
+    border-color: #409eff;
+    top: -7px;
+  }
+  
+  :deep(.output-handle-bottom) {
+    border-color: #67c23a;
+    bottom: -7px;
+  }
+  
+  :deep(.input-handle-left) {
+    border-color: #e6a23c;
+    left: -7px;
+  }
+  
+  :deep(.output-handle-right) {
+    border-color: #f56c6c;
+    right: -7px;
+  }
+  
+  /* 连接点指示器 */
+  .handle-indicator {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    pointer-events: none; /* 确保不会干扰拖拽操作 */
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  
+  :deep(.vue-flow__node:hover) .handle-indicator {
+    opacity: 1;
+  }
+  
+  .top-indicator {
+    top: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .bottom-indicator {
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .left-indicator {
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .right-indicator {
+    right: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  /* 高亮连接点状态 */
+  :deep(.vue-flow__handle.connecting) {
+    background-color: #409eff;
+    transform: scale(1.5);
+  }
+  
+  :deep(.vue-flow__handle:hover) {
+    transform: scale(1.5);
+    cursor: crosshair;
+  }
+  
+  /* 添加节点hover效果，使节点连接点更加明显 */
+  :deep(.vue-flow__node:hover) {
+    z-index: 5;
+  }
+  :deep(.vue-flow__node:hover .custom-handle) {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.8), 0 0 0 5px rgba(64, 158, 255, 0.3);
+  }
+  
+  /* 连接提示样式 */
+  .connection-tips {
+    background-color: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 400px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .tips-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #0284c7;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  
+  .tips-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #334155;
+    font-size: 13px;
+  }
+  
+  .tips-content p {
+    margin: 0;
+    line-height: 1.5;
+  }
+  
+  .auth-color {
+    color: #10b981;
+    font-weight: 600;
+  }
+  
+  .no-auth-color {
+    color: #ef4444;
+    font-weight: 600;
+  }
+  
+  .tips-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px;
+    color: #64748b;
+  }
+  
+  .tips-close:hover {
+    color: #0284c7;
+    background-color: #e0f2fe;
+  }
+  
+  /* 新增：拖拽排序相关样式 */
+  .artist-list-sortable {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    border: 1px dashed #dcdfe6;
+    border-radius: 6px;
+    margin-top: 10px;
+    background-color: #f5f7fa;
+  }
+  
+  .artist-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: #ffffff;
+    border: 1px solid #e4e7ed;
+    border-radius: 4px;
+    cursor: grab;
+    transition: all 0.2s ease;
+    margin-bottom: 8px;
+  }
+  
+  .artist-item:active {
+    cursor: grabbing;
+  }
+  
+  .artist-item:hover {
+    background-color: #f0f9ff;
+    border-color: #a0cfff;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .artist-item.dragging {
+    opacity: 0.5;
+    background-color: #e6f7ff;
+  }
+  
+  .artist-order-tip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #909399;
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px dashed #e8e8e8;
+  }
+  
+  .ghost-artist {
+    opacity: 0.5;
+    background: #c6e2ff;
+  }
+
+  
+/* 提交审核按钮样式 */
+.submit-btn {
+  min-width: 110px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-weight: 500;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.submit-icon {
+  font-size: 14px;
+  margin-right: 2px;
+}
+
+/* 添加脉冲动画效果 */
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(0);
+  border-radius: 50%;
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.submit-btn:hover::before {
+  transform: scale(2);
+  opacity: 0.3;
+}
+
+/* 封面上传相关样式 */
+.album-cover-wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 4px;
+  border: 2px solid #000;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.album-cover-wrapper:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.album-cover-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cover-edit-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  color: white;
+}
+
+.album-cover-wrapper:hover .cover-edit-overlay {
+  opacity: 1;
+}
+
+.cover-edit-overlay .el-icon {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.is-clickable {
+  cursor: pointer;
+}
+
+/* 顶部栏专辑封面和信息区域样式 */
+.album-cover-premium {
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.album-cover-premium:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.album-info-premium {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.album-info-premium:hover {
+  transform: translateY(-2px);
+}
+
+.album-title-premium:hover {
+  color: #409EFF;
+}
+
+/* 添加预览相关样式 */
+.pdf-preview-container {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 增强连接点样式 */
+.custom-handle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.custom-handle:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.5);
+  cursor: crosshair;
+}
+
+/* 为不同方向的连接点设置不同颜色 */
+.input-handle-top {
+  background-color: #3b82f6; /* 蓝色 */
+  top: -6px;
+}
+
+.output-handle-bottom {
+  background-color: #10b981; /* 绿色 */
+  bottom: -6px;
+}
+
+.input-handle-left {
+  background-color: #f59e0b; /* 橙色 */
+  left: -6px;
+}
+
+.output-handle-right {
+  background-color: #8b5cf6; /* 紫色 */
+  right: -6px;
+}
+
+/* 连接点指示器样式 */
+.handle-indicator {
+  position: absolute;
+  display: none;
+  color: #666;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+/* 当鼠标悬停在节点上时显示指示器 */
+.flow-node:hover .handle-indicator,
+.artist-node:hover .handle-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-indicator {
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottom-indicator {
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.left-indicator {
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.right-indicator {
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.pdf-preview-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.preview-error,
+.preview-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  gap: 12px;
+}
+
+/* 文件操作按钮样式 */
+.file-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.file-status {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 歌手节点授权歌曲信息样式 */
+.node-auth-songs {
+  margin-top: 10px;
+  border-top: 1px solid #eaeaea;
+  padding-top: 8px;
+  width: 100%;
+}
+
+.auth-songs-title {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #10b981;
+}
+
+/* 统一已授权和待授权歌曲项的样式 */
+.auth-song-item,
+.pending-song-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  margin-bottom: 5px;
+  font-size: 12px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.auth-song-item {
+  background-color: #f0fdf4;
+  border-left: 3px solid #10b981;
+}
+
+.pending-song-item {
+  background-color: #fef2f2;
+  border-left: 3px solid #ef4444;
+}
+
+/* 歌名样式统一 */
+.song-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  max-width: 70%;
+  flex: 1;
+}
+
+/* 按钮样式统一 */
+.view-btn,
+.upload-btn {
+  padding: 0 6px;
+  height: 20px;
+  min-height: unset;
+  font-size: 12px;
+  flex-shrink: 0;
+  min-width: 36px;
+}
+
+/* 待授权歌曲样式 */
+.node-pending-songs {
+  margin-top: 10px;
+  border-top: 1px solid #eaeaea;
+  padding-top: 8px;
+  width: 100%;
+}
+
+.pending-songs-title {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #ef4444;
+}
+
+.node-subtitle {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+/* 修复歌手节点样式 - 减小宽度 */
+.artist-node {
+  min-width: 180px;
+  max-width: 220px;
+  width: 100%;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.node-content {
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.node-title {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.node-auth.no-auth {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 上传按钮容器样式 */
+.upload-btn-inline {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 节点详情面板中的授权书显示样式 */
+.auth-song-item-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0fdf4;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  border-left: 3px solid #10b981;
+  width: 100%;
+}
+
+.pending-song-item-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fef2f2;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  border-left: 3px solid #ef4444;
+  width: 100%;
+}
+
+.song-auth-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.auth-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.file-status-text {
+  font-size: 14px;
+  color: #606266;
+}
+
+/* 节点详情面板样式优化 */
+.node-details-panel {
+  max-width: 400px;
+}
+
+.node-properties-wrapper {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #ebeef5;
+  padding-bottom: 12px;
+}
+
+.panel-header h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #303133;
+}
+
+/* 优化节点标题样式 */
+.node-header {
+  display: flex;
+  align-items: center;
+  background-color: #f5f7fa;
+  padding: 3px 6px;
+  border-bottom: 1px solid #ebeef5;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 12px;
+  position: relative;
+}
+
+/* 歌曲节点标题居中 */
+.song-node .node-header {
+  justify-content: center;
+}
+
+/* 歌手节点标题靠左 */
+.artist-node .node-header {
+  justify-content: space-between;
+}
+
+/* 删除按钮样式 */
+.delete-node-btn {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  padding: 2px;
+  height: 16px;
+  width: 16px;
+  min-height: unset;
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+/* 鼠标悬停在节点上时显示删除按钮 */
+.flow-node:hover .delete-node-btn,
+.artist-node:hover .delete-node-btn {
+  opacity: 1;
+}
+
+/* 删除按钮图标样式 */
+.delete-node-btn .el-icon {
+  font-size: 10px;
+}
+
+/* 确保授权歌曲标题不会超出范围 */
+.auth-songs-title, .pending-songs-title {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #10b981;
+}
+
+.pending-songs-title {
+  color: #ef4444;
+}
+
+/* 确保节点内容区域不会超出范围 */
+.node-auth-songs, .node-pending-songs {
+  margin-top: 8px;
+  border-top: 1px solid #eaeaea;
+  padding-top: 6px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* 添加连接线样式 */
+:deep(.vue-flow__edge) {
+  transition: stroke-width 0.2s;
+}
+
+:deep(.vue-flow__edge:hover) {
+  stroke-width: 3px !important;
+  cursor: pointer;
+}
+
+:deep(.vue-flow__edge-path) {
+  stroke-width: 2px;
+}
+
+:deep(.vue-flow__edge-text) {
+  font-size: 12px;
+  fill: #666;
+  font-weight: 500;
+}
+
+/* 连接线提示样式 */
+.connection-tips {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  background-color: white;
+  border: 2px solid #000;
+  border-radius: 4px;
+  padding: 10px 15px;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.tips-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.tips-content {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.tips-content p {
+  margin: 4px 0;
+}
+
+.auth-color {
+  color: #10b981;
+  font-weight: bold;
+}
+
+.no-auth-color {
+  color: #ef4444;
+  font-weight: bold;
+}
+
+.tips-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ebeef5;
+}
+
+.tips-close {
+  padding: 2px;
+  height: 20px;
+  width: 20px;
+}
+
+/* 添加节点连接提示样式 */
+.node-connection-tip {
+  font-size: 10px;
+  color: #999;
+  margin-top: 5px;
+  text-align: center;
+  padding: 3px;
+  border-top: 1px dashed #eee;
+}
+
+/* 歌手列表分区样式 */
+.sidebar-section {
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.section-header span {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.artist-search {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.artists-list {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 5px;
+  background-color: #fafafa;
+}
+
+.artist-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  margin-bottom: 5px;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid #eee;
+  transition: all 0.2s ease;
+  cursor: grab;
+}
+
+.artist-item:hover {
+  background-color: #f0f9ff;
+  border-color: #a0cfff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.artist-item.dragging {
+  opacity: 0.5;
+  background-color: #e6f7ff;
+}
+
+.artist-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.artist-name {
+  font-weight: 500;
+  color: #303133;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.artist-realname {
+  font-size: 12px;
+  color: #909399;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.add-artist-btn {
+  flex-shrink: 0;
+}
+
+.empty-artists {
+  text-align: center;
+  padding: 20px;
+  color: #909399;
+}
+
+/* 平台链接输入框样式 */
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.link-validation-tip {
+  font-size: 12px;
+  color: #f56c6c;
+  margin-top: 4px;
+}
+
+.link-validation-tip.is-success {
+  color: #67c23a;
+}
+
+/* 添加问题面板样式 - 苹果设计风格 */
+.problems-panel {
+  position: absolute;
+  bottom: 40px; /* 增加距离底部的距离，避免挡住状态栏 */
+  left: 20px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.08);
+  max-width: 250px; /* 减小宽度 */
+  width: 100%;
+  z-index: 100;
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.problems-panel.collapsed {
+  max-height: 44px;
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.panel-header h4 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.panel-actions {
+  display: flex;
+  gap: 2px;
+}
+
+.panel-actions .el-button {
+  padding: 4px;
+  border: none;
+  background: transparent;
+}
+
+.panel-actions .el-icon {
+  font-size: 16px;
+  color: #666;
+}
+
+.problems-list {
+  margin: 0;
+  max-height: 200px; /* 减小高度 */
+  overflow-y: auto;
+  padding: 6px;
+}
+
+.problem-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: rgba(250, 250, 250, 0.8);
+}
+
+.problem-item:hover {
+  background-color: rgba(240, 240, 240, 0.9);
+  transform: translateY(-1px);
+}
+
+.problem-item.error {
+  border-left: 2px solid #ff3b30;
+}
+
+.problem-item.warning {
+  border-left: 2px solid #ff9500;
+}
+
+.problem-item.info {
+  border-left: 2px solid #007aff;
+}
+
+.problem-icon {
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.problem-item.error .problem-icon {
+  color: #ff3b30;
+}
+
+.problem-item.warning .problem-icon {
+  color: #ff9500;
+}
+
+.problem-item.info .problem-icon {
+  color: #007aff;
+}
+
+.problem-content {
+  flex: 1;
+}
+
+.problem-message {
+  font-size: 13px;
+  margin-bottom: 3px;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.3;
+}
+
+.problem-location {
+  font-size: 11px;
+  color: #8e8e93;
+  font-weight: 400;
+}
+
+.problem-actions {
+  margin-left: 8px;
+}
+
+.problem-actions .el-button {
+  border-radius: 14px;
+  padding: 4px 10px;
+  height: 28px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.problem-count {
+  font-weight: 600;
+  background-color: #ff3b30;
+  color: white;
+  border-radius: 10px;
+  padding: 1px 6px;
+  font-size: 11px;
+  margin-left: 5px;
+  min-width: 18px;
+  text-align: center;
+}
+
+.problem-count.has-errors {
+  background-color: #ff3b30;
+}
+
+.no-problems {
+  text-align: center;
+  color: #34c759;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.no-problems .el-icon {
+  font-size: 24px;
+}
+
+/* 高亮元素样式 */
+.highlight-element {
+  animation: pulse 1.5s infinite;
+  filter: drop-shadow(0 0 8px rgba(64, 158, 255, 0.8));
+}
+
+@keyframes pulse {
+  0% {
+    filter: drop-shadow(0 0 5px rgba(64, 158, 255, 0.8));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(64, 158, 255, 0.8));
+  }
+  100% {
+    filter: drop-shadow(0 0 5px rgba(64, 158, 255, 0.8));
+  }
+}
+
+/* 添加过渡效果 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* 添加不再提示的样式 */
+.do-not-show-again {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #909399;
+}
+
+/* 添加不再提示的复选框样式 */
+.do-not-show-again input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* 添加不再提示的按钮样式 */
+.do-not-show-again button {
+  margin-left: 10px;
+}
+  
+  /* Photoshop风格状态栏样式 */
+  .status-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 28px;
+    background-color: #f6f8fa;
+    border-top: 1px solid #e1e4e8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 12px;
+    color: #586069;
+    z-index: 10;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .status-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    overflow: hidden;
+  }
+  
+  .status-right {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .status-message {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    position: relative;
+  }
+  
+  .status-message.clickable {
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    padding: 0 4px;
+    border-radius: 3px;
+  }
+  
+  .status-message.clickable:hover {
+    background-color: rgba(64, 158, 255, 0.1);
+    color: #409eff;
+  }
+  
+  .status-message.clickable:active {
+    background-color: rgba(64, 158, 255, 0.2);
+  }
+  
+  .status-controls {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+  }
+  
+  .clear-message-btn {
+    padding: 0;
+    height: 16px;
+    width: 16px;
+    color: #909399;
+  }
+  
+  .clear-message-btn:hover {
+    color: #606266;
+  }
+  
+  .status-text {
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 2px 0;
+    letter-spacing: 0.3px;
+  }
+  
+  .status-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #586069;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  
+  .separator {
+    color: #d1d5da;
+    font-weight: 300;
+    margin: 0 2px;
+  }
+  
+  .problem-count {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .problem-count.has-error {
+    color: #f56c6c;
+    font-weight: 600;
+  }
+  
+  .clickable {
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .clickable:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+  
+  .clickable:active {
+    transform: scale(0.95);
+  }
+  
+  .text-link {
+    cursor: pointer;
+    color: #409eff;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  
+  .text-link:hover {
+    color: #66b1ff;
+  }
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+/* Martin Garrix 风格按钮 */
+.garrix-btn {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #333;
+  border-radius: 0;
+  padding: 6px 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: all 0.2s ease;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.garrix-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+.garrix-btn:active {
+  transform: translate(0, 0);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.08);
+}
+
+.garrix-btn-danger {
+  background-color: #fff;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+}
+
+.garrix-btn-danger:hover {
+  background-color: #ef4444;
+  color: #fff;
+}
+
+/* Martin Garrix 风格属性面板 */
+.node-details-panel {
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.08) !important;
+  overflow: visible !important;
+}
+
+.node-properties-wrapper {
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+.panel-header {
+  border-bottom: 1px solid #333 !important;
+  background-color: #f9f9f9 !important;
+  padding: 12px 16px !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-header h4 {
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin: 0 !important;
+}
+
+/* 覆盖 Element Plus 表单样式为 Martin Garrix 风格 */
+:deep(.el-form-item) {
+  margin-bottom: 16px !important;
+}
+
+:deep(.el-form-item__label) {
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  color: #333 !important;
+  padding: 0 !important;
+}
+
+:deep(.el-input__wrapper) {
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-color: #fff !important;
+}
+
+:deep(.el-input__wrapper:hover) {
+  border-color: #333 !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08) !important;
+}
+
+:deep(.el-input__wrapper.is-focus) {
+  border-color: #333 !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08) !important;
+}
+
+:deep(.el-select__wrapper) {
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+}
+
+:deep(.el-select-dropdown__item) {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+:deep(.el-select-dropdown__item.selected) {
+  background-color: #333 !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+
+/* 文件上传按钮 Martin Garrix 风格 */
+.file-upload-wrapper .el-button {
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  background-color: #fff !important;
+  color: #333 !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+.file-upload-wrapper .el-button:hover {
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+/* 歌手排序项 Martin Garrix 风格 */
+.artist-list-sortable .artist-item {
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  background-color: #fff !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.2s ease !important;
+}
+
+.artist-list-sortable .artist-item:hover {
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+.artist-list-sortable .artist-item.dragging {
+  opacity: 0.7 !important;
+  transform: scale(1.05) !important;
+}
+
+/* 歌手授权项 Martin Garrix 风格 */
+.auth-song-item-detail,
+.pending-song-item-detail {
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  background-color: #fff !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08) !important;
+  margin-bottom: 8px !important;
+  padding: 12px !important;
+  transition: all 0.2s ease !important;
+}
+
+.auth-song-item-detail:hover,
+.pending-song-item-detail:hover {
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+/* 问题面板 Martin Garrix 风格 */
+.problems-panel {
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.08) !important;
+}
+
+.problems-panel .panel-header {
+  border-bottom: 1px solid #333 !important;
+}
+
+.problem-item {
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  margin-bottom: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+.problem-item:hover {
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08) !important;
+}
+
+/* 状态栏 Martin Garrix 风格 */
+.status-bar {
+  border-top: 1px solid #333 !important;
+  background-color: #f9f9f9 !important;
+}
+
+/* 覆盖 Element Plus 对话框样式为 Martin Garrix 风格 */
+:deep(.el-dialog) {
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.08) !important;
+  overflow: visible !important;
+}
+
+:deep(.el-dialog__header) {
+  border-bottom: 1px solid #333 !important;
+  background-color: #f9f9f9 !important;
+  padding: 16px !important;
+}
+
+:deep(.el-dialog__title) {
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+:deep(.el-dialog__footer) {
+  border-top: 1px solid #333 !important;
+  background-color: #f9f9f9 !important;
+  padding: 16px !important;
+}
+
+:deep(.el-button) {
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  background-color: #fff !important;
+  color: #333 !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  height: auto !important;
+  padding: 8px 16px !important;
+}
+
+:deep(.el-button:hover) {
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+:deep(.el-button--primary) {
+  background-color: #333 !important;
+  color: #fff !important;
+}
+
+:deep(.el-button--danger) {
+  border-color: #ef4444 !important;
+  color: #ef4444 !important;
+}
+
+:deep(.el-button--danger:hover) {
+  background-color: #ef4444 !important;
+  color: #fff !important;
+}
+
+/* 右侧工具栏 Martin Garrix 风格 */
+.editor-sidebar {
+  border-left: 1px solid #333 !important;
+}
+
+.node-type {
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.2s ease !important;
+}
+
+.node-type:hover {
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.12) !important;
+  border-color: #333 !important;
+}
+
+.sidebar-header {
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border-bottom: 1px solid #333 !important;
+  padding-bottom: 8px !important;
+  margin-bottom: 16px !important;
+}
+
+.artist-item {
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.08) !important;
+  transition: all 0.2s ease !important;
+}
+
+.artist-item:hover {
+  transform: translate(-1px, -1px) !important;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+/* 连接提示框 Martin Garrix 风格 */
+.connection-tips {
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.08) !important;
+}
+
+.tips-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.tips-content {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.tips-content p {
+  margin: 4px 0;
+}
+
+.auth-color {
+  color: #10b981;
+  font-weight: bold;
+}
+
+.no-auth-color {
+  color: #ef4444;
+  font-weight: bold;
+}
+
+.tips-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #333 !important;
+  background-color: #f9f9f9 !important;
+}
+
+.tips-close {
+  padding: 2px;
+  height: 20px;
+  width: 20px;
+}
