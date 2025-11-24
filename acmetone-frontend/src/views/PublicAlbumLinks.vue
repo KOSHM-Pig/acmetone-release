@@ -62,6 +62,7 @@
                     <img 
                       :src="getImageUrl(getThumbnailUrl(link.coverImage))" 
                       :alt="link.albumName"
+                      loading="lazy"
                     >
                   </div>
                   <div class="release-info">
@@ -80,6 +81,8 @@
             <div v-if="!loading && releasesGroupedByYear.length === 0" class="no-releases">
                 <p>No releases found for the selected year.</p>
             </div>
+            <div ref="loadMoreSentinel" class="load-more-sentinel"></div>
+            <div v-if="isLoadingMore" class="loading-more"><el-skeleton :rows="2" animated /></div>
           </div>
           </div>
       </div>
@@ -104,11 +107,17 @@ const availableYears = ref([]);
 const currentVisibleYear = ref(null);
 const yearSectionRefs = ref({});
 let observer = null;
+const loadMoreSentinel = ref(null);
+let sentinelObserver = null;
+const page = ref(1);
+const totalPages = ref(1);
+const isLoadingMore = ref(false);
 
 const latestRelease = computed(() => {
   if (!allLinks.value || allLinks.value.length === 0) return null;
   return allLinks.value[0];
 });
+
 
 const releasesGroupedByYear = computed(() => {
   if (loading.value) return [];
@@ -199,7 +208,7 @@ const getImageUrl = (imagePath) => {
 const fetchAllLinks = async () => {
     loading.value = true;
   try {
-    const response = await axios.get(`${API_BASE_URL}/album-links/public/list`, { params: { page: 1, pageSize: 1000 } });
+    const response = await axios.get(`${API_BASE_URL}/album-links/public/list`, { params: { page: 1, pageSize: 60, includeSongs: false } });
     
     // 处理歌曲和歌手信息
     const processedLinks = (response.data.links || []).map(link => {
@@ -226,6 +235,8 @@ const fetchAllLinks = async () => {
     if (availableYears.value.length > 0) {
         currentVisibleYear.value = availableYears.value[0];
     }
+    page.value = response.data.page || 1;
+    totalPages.value = response.data.totalPages || 1;
   } catch (err) {
     error.value = '加载专辑链接失败。';
     console.error(err);
@@ -240,12 +251,62 @@ const filterByYear = (year) => {
   if(observer) observer.disconnect(); // Stop observing when not in 'all' mode
 };
 
+const loadMore = async () => {
+  if (isLoadingMore.value) return;
+  if (page.value >= totalPages.value) return;
+  isLoadingMore.value = true;
+  try {
+    const nextPage = page.value + 1;
+    const response = await axios.get(`${API_BASE_URL}/album-links/public/list`, { params: { page: nextPage, pageSize: 60, includeSongs: false } });
+    const processedLinks = (response.data.links || []).map(link => {
+      if (link.songs && link.songs.length > 0) {
+        link.songs = link.songs.map(song => {
+          if (song.internalSong && song.internalSong.Artists && song.internalSong.Artists.length > 0) {
+            const artistNames = song.internalSong.Artists.map(artist => artist.name);
+            song.artistName = artistNames.join(' & ');
+          } else if (song.internalArtistName) {
+            song.artistName = song.internalArtistName;
+          }
+          return song;
+        });
+      }
+      return link;
+    });
+    allLinks.value = [...allLinks.value, ...processedLinks].sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
+    page.value = response.data.page || nextPage;
+    totalPages.value = response.data.totalPages || totalPages.value;
+    const years = new Set(allLinks.value.map(link => new Date(link.releaseDate).getFullYear()).filter(year => !isNaN(year)));
+    availableYears.value = Array.from(years).sort((a, b) => b - a);
+  } finally {
+    isLoadingMore.value = false;
+  }
+};
+
 const navigateToAlbum = (slug) => {
   if (!slug) return;
   router.push(`/album/${slug}`);
 };
 
 onMounted(fetchAllLinks);
+
+onMounted(() => {
+  sentinelObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        loadMore();
+      }
+    });
+  }, { root: null, threshold: 0 });
+  nextTick(() => {
+    if (loadMoreSentinel.value) {
+      sentinelObserver.observe(loadMoreSentinel.value);
+    }
+  });
+});
+
+onUnmounted(() => {
+  if (sentinelObserver) sentinelObserver.disconnect();
+});
 </script>
 
 <style scoped>
@@ -479,6 +540,8 @@ onMounted(fetchAllLinks);
   display: flex;
   align-items: flex-start;
   gap: 25px;
+  content-visibility: auto;
+  contain-intrinsic-size: 400px 300px;
 }
 
 .release-image {
@@ -542,3 +605,11 @@ onMounted(fetchAllLinks);
   .timeline-container { display: none; } /* Hide timeline on mobile */
 }
 </style> 
+.load-more-sentinel {
+  width: 100%;
+  height: 1px;
+}
+
+.loading-more {
+  margin: 20px 0;
+}
